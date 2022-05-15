@@ -15,7 +15,6 @@
 
 extern int errno;
 
-int   g_running = 1;
 char  *g_buffer;
 char  *g_args[MAXARGS];
 char  g_path[PATHLEN];
@@ -37,7 +36,7 @@ Options:\n\
         exit(EXIT_SUCCESS);
     } else if (!strcmp(argv[1], "-v")){
         // Version
-        printf("Kosmos 0.0.1\n");
+        printf("Kosmos 1.0.0\n");
         exit(EXIT_SUCCESS);
     }
 }
@@ -69,13 +68,13 @@ int changedir(char *const *args){
 
 // Define the builtin_lookup type
 typedef int (*builtin_fpointer)(char *const *args);
-struct builtin_lookup{
+struct builtins{
     char *           name;
     builtin_fpointer func;
 };
 
 // Define the contents of the builtins struct
-const struct builtin_lookup builtins[] = {
+const struct builtins builtins[] = {
     {"exit", &builtin_exit},
     {"cd", &changedir}};
 
