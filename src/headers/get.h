@@ -1,8 +1,9 @@
 #ifndef GET_HEADER
 #define GET_HEADER
 
-#define PATHLEN 256
-#define HOST_NAME_MAX 64
+#include "defvars.h"
+
+int gethostname(char *name, size_t len);
 
 const char* whoami(){
     // Get the name of the user
