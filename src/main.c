@@ -11,6 +11,7 @@
 #include "headers/colors.h"
 #include "headers/trim.h"
 #include "headers/get.h"
+#include "headers/prompt.h"
 
 extern int errno;
 
@@ -18,7 +19,6 @@ int   g_running = 1;
 char  *g_buffer;
 char  *g_args[MAXARGS];
 char  g_path[PATHLEN];
-char  shell_prompt[512];
 
 void command_line_arguments(int argc, char *argv[]){
     if (argc == 1){
@@ -150,36 +150,6 @@ char **split_command(char *cmd){
     }
 
     return NULL;
-}
-
-const char *prompt(const char *homepath){
-    // Create a prompt for the user
-    // This changes the homepath to ~ like other shells
-    char cwd[PATHLEN];
-    char *cwd_check;
-
-    cwd_check = getcwd(cwd, PATHLEN);
-    if (!cwd_check){
-        return NULL;
-    }
-
-    char *path = malloc(sizeof(cwd)+sizeof(homepath)+1);
-
-    // If cwd contains the homepath replace the homepath with ~
-    if (strstr(cwd, homepath)){
-        path[0] = '~';
-        memmove(cwd, cwd+strlen(homepath), sizeof(cwd));
-        // Add the hyphen
-        strcat(path, cwd);
-        // Push all that into cwd
-        strcpy(cwd, path);
-    }
-    free(path);
-    snprintf(shell_prompt, sizeof(shell_prompt), "[%s%s%s@%s%s%s]:%s%s%s$ ",
-            YELLOWBOLD, whoami(), RESET,
-            BLUE, get_host(), RESET,
-            MAGENTA, cwd, RESET);
-    return shell_prompt;
 }
 
 void mainloop(){
