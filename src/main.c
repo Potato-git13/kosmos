@@ -6,70 +6,63 @@
 #include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+
+#include "headers/defvars.h"
 #include "headers/colors.h"
 #include "headers/trim.h"
 #include "headers/get.h"
 
 extern int errno;
 
-#define MAXARGS 32
-#define PATHLEN 256
-#define HOST_NAME_MAX 64
-#define COMMANDLEN 1024
-#define SIZE(x) (sizeof x / sizeof x[0])
-
 int   g_running = 1;
 char  *g_buffer;
-char  g_curpath[PATHLEN];
 char  *g_args[MAXARGS];
-char  path[PATHLEN];
-char shell_prompt[512];
+char  g_path[PATHLEN];
+char  shell_prompt[512];
 
-void command_line_arguments(int arg_counter, char *argv[]){
-    if (arg_counter == 1){
+void command_line_arguments(int argc, char *argv[]){
+    if (argc == 1){
         return;
     }
 
-    if (arg_counter > 2){
-        printf("kosmos: too many arguments supplied\n");
-        exit(0);
+    if (argc > 2){
+        fprintf(stderr, "kosmos: too many arguments supplied\n");
+        exit(EXIT_FAILURE);
     } else if (!strcmp(argv[1], "-h")){
         printf("\
 Usage: kosmos [<option>]\n\n\
 Options:\n\
 \t-h\tshow this message, then exit\n\
 \t-v\tshow the kosmos version number, then exit\n");
-        exit(0);
+        exit(EXIT_SUCCESS);
     } else if (!strcmp(argv[1], "-v")){
         // Version
         printf("Kosmos 0.0.1\n");
-        exit(0);
+        exit(EXIT_SUCCESS);
     }
 }
 
 int builtin_exit(){
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 int changedir(char *const *args){
     // Implementation of cd
-    path[0] = '\0';
+    g_path[0] = '\0';
 
     // If nothing is given go to the home directory
-    if (args[1] == '\0'){
-        // Create a path from the "/home/" string and the username
-        strcat(path, "/home/");
-        strcat(path, whoami());
+    if (args[1]){
+        // If a path is given copy the string to the path variable
+        strcpy(g_path, args[1]);
     } else {
-        // If a path IS given copy the string to the path variable
-        strcpy(path, args[1]);
+        // Create a path from the "/home/" string and the username
+        strcat(g_path, "/home/");
+        strcat(g_path, whoami());
     }
 
     // Change the dir + errors
-    if (!chdir(path))
-        memcpy(g_curpath, path, strlen(path) + 1);
-    else
-        printf("cd: no such directory: %s\n", path);
+    if (chdir(g_path))
+        fprintf(stderr, "cd: no such directory: %s\n", g_path);
 
     return 0;
 }
@@ -108,11 +101,11 @@ void execute_command(char *const *args){
         return;
     // Run the command and return any errors
     } else if ((pid = fork()) == 0){
-        // Output errors
         int err = execvp(args[0], args);
         if (err == -1){
-            printf("kosmos: command not found: %s\n", *args);
-            exit(-1);
+            // Output errors
+            fprintf(stderr, "kosmos: command not found: %s\n", *args);
+            exit(EXIT_FAILURE);
         }
         printf("Error: %s\n", strerror(errno));
         exit(errno);
@@ -138,7 +131,7 @@ char **split_command(char *cmd){
     while (1){
         if (*cmd == ' ' || *cmd == '\0'){
             if (argcnt == MAXARGS){
-                printf("kosmos: too many arguments\n");
+                fprintf(stderr, "kosmos: too many arguments\n");
                 return NULL;
             }
             g_args[argcnt++] = create_string(lastptr, len);
@@ -163,15 +156,17 @@ const char *prompt(const char *homepath){
     // Create a prompt for the user
     // This changes the homepath to ~ like other shells
     char cwd[PATHLEN];
-    char *ret;
+    char *cwd_check;
 
-    getcwd(cwd, PATHLEN);
+    cwd_check = getcwd(cwd, PATHLEN);
+    if (!cwd_check){
+        return NULL;
+    }
 
     char *path = malloc(sizeof(cwd)+sizeof(homepath)+1);
 
     // If cwd contains the homepath replace the homepath with ~
-    ret = strstr(cwd, homepath);
-    if (ret){
+    if (strstr(cwd, homepath)){
         path[0] = '~';
         memmove(cwd, cwd+strlen(homepath), sizeof(cwd));
         // Add the hyphen
@@ -190,6 +185,7 @@ const char *prompt(const char *homepath){
 void mainloop(){
     char **args = NULL;
     const char *homepath = get_homepath();
+    // TAB autocomplete
     rl_bind_key('\t', rl_complete);
     while (1){
         g_buffer = readline(prompt(homepath));
@@ -204,13 +200,8 @@ void mainloop(){
     }
 }
 
-void init(){
-    getcwd(g_curpath, PATHLEN);
-}
-
-int main(int arg_counter,char* argv[]){
-    command_line_arguments(arg_counter, argv);
-    init();
+int main(int argc,char* argv[]){
+    command_line_arguments(argc, argv);
     mainloop();
     return 0;
 }
