@@ -1,4 +1,4 @@
-CFLAGS=-g -Wall -Wextra -Wpedantic -std=c11 -O3 -lreadline
+CFLAGS=-g -Wall -Wextra -Wpedantic -std=c17 -O3 -lreadline
 compile:
 	mkdir -p bin/
 	gcc -o bin/kosmos src/main.c $(CFLAGS)
