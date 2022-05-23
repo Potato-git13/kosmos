@@ -12,6 +12,7 @@
 #include "headers/trim.h"
 #include "headers/get.h"
 #include "headers/prompt.h"
+#include "headers/alias.h"
 
 extern int errno;
 
@@ -66,7 +67,7 @@ int changedir(char *const *args){
     return 0;
 }
 
-// Define the builtin_lookup type
+// Define the builtins type
 typedef int (*builtin_fpointer)(char *const *args);
 struct builtins{
     char *           name;
@@ -154,13 +155,22 @@ char **split_command(char *cmd){
 void mainloop(){
     char **args = NULL;
     const char *homepath = get_homepath();
+    char *dest = malloc(COMMANDLEN);
     // TAB autocomplete
     rl_bind_key('\t', rl_complete);
     while (1){
         g_buffer = readline(prompt(homepath));
         add_history(g_buffer);
-
-        trim(g_buffer, g_buffer);
+        // Aliases
+        alias(dest, g_buffer, "ls", "ls --color");
+        alias(dest, g_buffer, "grep", "grep --color");
+        // If dest contains a string use it to be trimmed, else use g_buffer
+        if(*dest){
+            trim(g_buffer, dest);
+        } else{
+            trim(g_buffer, g_buffer);
+        }
+        free(dest);
         // Split the command
         args = split_command(g_buffer);
         free(g_buffer);
