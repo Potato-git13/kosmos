@@ -1,8 +1,8 @@
-#THE KOSMOS SHELL
+# THE KOSMOS SHELL
 
 A simple linux shell written in C
 
-#Installing
+# Installing
 ```
 git clone https://github.com/Potato-git13/kosmos.git
 cd kosmos/
