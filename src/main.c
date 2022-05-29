@@ -13,6 +13,7 @@
 #include "headers/get.h"
 #include "headers/prompt.h"
 #include "headers/alias.h"
+#include "config.h"
 
 extern int errno;
 
@@ -162,8 +163,9 @@ void mainloop(){
         g_buffer = readline(prompt(homepath));
         add_history(g_buffer);
         // Aliases
-        alias(dest, g_buffer, "ls", "ls --color");
-        alias(dest, g_buffer, "grep", "grep --color");
+        for (int i = 0; i < SIZE(aliases); i++){
+            alias(dest, g_buffer, aliases[i].substring, aliases[i].replace);
+        }
         // If dest contains a string use it to be trimmed, else use g_buffer
         if(*dest)
             trim(g_buffer, dest);
