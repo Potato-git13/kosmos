@@ -38,7 +38,7 @@ Options:\n\
         exit(EXIT_SUCCESS);
     } else if (!strcmp(argv[1], "-v")){
         // Version
-        printf("Kosmos 1.0.0\n");
+        printf("Kosmos 0.1.0\n");
         exit(EXIT_SUCCESS);
     }
 }
