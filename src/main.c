@@ -155,21 +155,20 @@ char **split_command(char *cmd){
 void mainloop(){
     char **args = NULL;
     const char *homepath = get_homepath();
-    char *dest = malloc(COMMANDLEN);
     // TAB autocomplete
     rl_bind_key('\t', rl_complete);
     while (1){
+        char *dest = malloc(COMMANDLEN * sizeof(char));
         g_buffer = readline(prompt(homepath));
         add_history(g_buffer);
         // Aliases
         alias(dest, g_buffer, "ls", "ls --color");
         alias(dest, g_buffer, "grep", "grep --color");
         // If dest contains a string use it to be trimmed, else use g_buffer
-        if(*dest){
+        if(*dest)
             trim(g_buffer, dest);
-        } else{
+        else
             trim(g_buffer, g_buffer);
-        }
         free(dest);
         // Split the command
         args = split_command(g_buffer);
