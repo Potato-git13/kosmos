@@ -1,3 +1,6 @@
+#ifndef ALIAS_HEADER
+#define ALIAS_HEADER
+
 void alias(char *dest, const char *src, const char* substring, const char *replace){
     int substring_len = strlen(substring);
     // Check if src starts with substring
@@ -14,3 +17,5 @@ void alias(char *dest, const char *src, const char* substring, const char *repla
     strcpy(dest, replace);
     strcat(dest, src+substring_len);
 }
+
+#endif
