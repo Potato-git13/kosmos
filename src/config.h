@@ -1,8 +1,6 @@
 #ifndef CONFIG_HEADER
 #define CONFIG_HEADER
 
-#include "headers/defvars.h"
-
 struct Aliases{
     char substring[COMMANDLEN];
     char replace[COMMANDLEN];

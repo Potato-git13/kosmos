@@ -1,8 +1,6 @@
 #ifndef GET_HEADER
 #define GET_HEADER
 
-#include "defvars.h"
-
 int gethostname(char *name, size_t len);
 
 const char* whoami(){
