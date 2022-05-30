@@ -53,6 +53,7 @@ int builtin_exit(){
 int changedir(char *const *args){
     // Implementation of cd
     g_path[0] = '\0';
+    char *temp = malloc(sizeof(g_path) * sizeof(char*));
 
     // If nothing is given go to the home directory
     if (args[1]){
@@ -63,6 +64,16 @@ int changedir(char *const *args){
         strcat(g_path, "/home/");
         strcat(g_path, whoami());
     }
+
+    if (g_path[0] == '~'){
+        memmove(&g_path[0], &g_path[1], strlen(g_path) - 0);
+        strcpy(temp, g_path);
+
+        strcpy(g_path, "/home/");
+        strcat(g_path, whoami());
+        strcat(g_path, temp);
+    }
+    free(temp);
 
     // Change the dir + errors
     if (chdir(g_path))
