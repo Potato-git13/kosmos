@@ -7,6 +7,8 @@
 #define COMMANDLEN 1024
 #define PATHLEN 256
 #define HOST_NAME_MAX 64
+#define HISTSIZE 3000
+#define SAVEHIST 3000
 
 #define SIZE(x) (sizeof x / sizeof x[0])
 

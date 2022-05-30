@@ -112,7 +112,7 @@ void execute_command(char *const *args){
             fprintf(stderr, "kosmos: command not found: %s\n", *args);
             exit(EXIT_FAILURE);
         }
-        printf("Error: %s\n", strerror(errno));
+        printf("kosmos: %s\n", strerror(errno));
         exit(errno);
     // If there are no errors wait for it to finish
     } else
@@ -167,15 +167,38 @@ char **split_command(char *cmd){
     return NULL;
 }
 
+void create_history(char *fname){
+    if (access(fname, F_OK) != 0) {
+        FILE *fp;
+        fp = fopen(fname, "w");
+        fclose(fp);
+        create_history(fname);
+    }
+}
+
 void mainloop(){
     char **args = NULL;
     const char *homepath = get_homepath();
+
+    char *hist_file = malloc((sizeof(homepath) + sizeof("/.kosmos_history"))*sizeof(char*));
+    strcpy(hist_file, homepath);
+    strcat(hist_file, "/.kosmos_history");
+
     // TAB autocomplete
     rl_bind_key('\t', rl_complete);
+    // Limit the history size
+    stifle_history(HISTSIZE);
+    // Create a history file if it cannot be read
+    if(read_history(hist_file)!=0)
+        create_history(hist_file);
+
     while (1){
         char *dest = malloc(COMMANDLEN * sizeof(char));
         g_buffer = readline(prompt(homepath));
+        // Handle history
         add_history(g_buffer);
+        append_history(1, hist_file);
+        history_truncate_file(hist_file, SAVEHIST);
         // Aliases
         for (int i = 0; i < SIZE(aliases); i++){
             alias(dest, g_buffer, aliases[i].substring, aliases[i].replace);
