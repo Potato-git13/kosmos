@@ -196,8 +196,11 @@ void mainloop(){
         char *dest = malloc(COMMANDLEN * sizeof(char));
         g_buffer = readline(prompt(homepath));
         // Handle history
-        add_history(g_buffer);
-        append_history(1, hist_file);
+        // If the buffer is not NULL save it to history
+        if (*g_buffer != '\0'){
+            add_history(g_buffer);
+            append_history(1, hist_file);
+        }
         history_truncate_file(hist_file, SAVEHIST);
         // Aliases
         for (int i = 0; i < SIZE(aliases); i++){
