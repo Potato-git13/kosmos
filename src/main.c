@@ -180,7 +180,7 @@ void mainloop(){
     char **args = NULL;
     const char *homepath = get_homepath();
 
-    char *hist_file = malloc((sizeof(homepath) + sizeof("/.kosmos_history"))*sizeof(char*));
+    char *hist_file = malloc(PATHLEN);
     strcpy(hist_file, homepath);
     strcat(hist_file, "/.kosmos_history");
 
