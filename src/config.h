@@ -6,6 +6,7 @@ struct Aliases{
     char replace[COMMANDLEN];
 };
 
+// Basic alias examples
 const struct Aliases aliases[] = {
     {"ls", "ls --color"},
     {"grep", "grep --color"},

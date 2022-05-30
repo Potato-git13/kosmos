@@ -14,7 +14,6 @@ const char *prompt(const char *homepath){
     }
 
     char *path = malloc(sizeof(cwd)+sizeof(homepath)+1);
-
     // This changes the homepath to ~ like other shells
     // If cwd contains the homepath replace the homepath with ~
     if (strstr(cwd, homepath)){
@@ -26,7 +25,7 @@ const char *prompt(const char *homepath){
         strcpy(cwd, path);
     }
     free(path);
-    
+    // Combine everything into a string and return it
     snprintf(shell_prompt, sizeof(shell_prompt), "[%s%s%s@%s%s%s]:%s%s%s$ ",
             YELLOWBOLD, whoami(), RESET,
             BLUE, get_host(), RESET,

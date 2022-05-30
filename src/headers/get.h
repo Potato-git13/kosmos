@@ -1,13 +1,14 @@
 #ifndef GET_HEADER
 #define GET_HEADER
 
+// Define the function to avoid warnings during compilation
 int gethostname(char *name, size_t len);
 
 const char* whoami(){
     // Get the name of the user
     char *user=getenv("USER");
     if(user==NULL)
-        printf("Error: user could not be found");
+        printf("kosmos: user could not be found");
 
     return user;
 }

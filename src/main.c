@@ -19,16 +19,19 @@ extern int errno;
 
 char  *g_buffer;
 char  *g_args[MAXARGS];
-char  g_path[PATHLEN];
+char   g_path[PATHLEN];
 
 void command_line_arguments(int argc, char *argv[]){
+    // If only one argument is given i.e "kosmos" drop to shell
     if (argc == 1){
         return;
     }
 
+    // If there are to many arguments print an error and exits
     if (argc > 2){
         fprintf(stderr, "kosmos: too many arguments supplied\n");
         exit(EXIT_FAILURE);
+    // Help message
     } else if (!strcmp(argv[1], "-h")){
         printf("\
 Usage: kosmos [<option>]\n\n\
@@ -36,9 +39,9 @@ Options:\n\
 \t-h\tshow this message, then exit\n\
 \t-v\tshow the kosmos version number, then exit\n");
         exit(EXIT_SUCCESS);
+    // Version number
     } else if (!strcmp(argv[1], "-v")){
-        // Version
-        printf("Kosmos 0.1.0\n");
+        printf("kosmos %s\n", VERSION);
         exit(EXIT_SUCCESS);
     }
 }
@@ -68,7 +71,7 @@ int changedir(char *const *args){
     return 0;
 }
 
-// Define the builtins type
+// Define the builtins struct
 typedef int (*builtin_fpointer)(char *const *args);
 struct builtins{
     char *           name;
@@ -81,6 +84,7 @@ const struct builtins builtins[] = {
     {"cd", &changedir}};
 
 int builtin(char *const *args){
+    // If the arguments given are the same as some builtin commands' name call them
     for (int i = 0; i < SIZE(builtins); i++){
         if (!strcmp(builtins[i].name, args[0]))
             return builtins[i].func(args);
@@ -129,20 +133,30 @@ char **split_command(char *cmd){
     int   argcnt  = 0;
     int   len     = 0;
 
+    /*
+        Split the string given for every space and NULL character and return
+        the array of arguments when finished
+    */
     while (1){
         if (*cmd == ' ' || *cmd == '\0'){
             if (argcnt == MAXARGS){
                 fprintf(stderr, "kosmos: too many arguments\n");
                 return NULL;
             }
+            // Create a new string and add it to the array
             g_args[argcnt++] = create_string(lastptr, len);
 
+            /*
+                If a NULL character is encountered that means the end of the
+                command therefore return the array of arguments and exit the
+                function
+            */
             if (*cmd == '\0'){
                 g_args[argcnt] = 0;
                 return g_args;
             }
 
-            len     = 0;
+            len = 0;
             lastptr = ++cmd;
             continue;
         }
@@ -181,7 +195,9 @@ void mainloop(){
 }
 
 int main(int argc,char* argv[]){
+    // Check the arguments
     command_line_arguments(argc, argv);
+    // Enter the main loop of the shell
     mainloop();
     return 0;
 }

@@ -3,10 +3,11 @@
 
 void trim (char *dest, char *src)
 {
-    // Check for exsitance
+    // Check for existance
     if (!src || !dest)
        return;
 
+    // Check if the length of src is 0, if so make dest NULL
     int len = strlen(src);
     if (!len) {
         *dest = '\0';
@@ -15,7 +16,7 @@ void trim (char *dest, char *src)
     char *ptr = src + len - 1;
     char *q;
 
-    // remove trailing whitespace
+    // Remove trailing whitespace
     while (ptr > src) {
         if (!isspace(*ptr))
             break;
@@ -24,7 +25,7 @@ void trim (char *dest, char *src)
 
     ptr++;
 
-    // remove leading whitespace
+    // Remove leading whitespace
     for (q = src; (q < ptr && isspace(*q)); q++);
 
     // Copy the results into dest
