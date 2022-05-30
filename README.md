@@ -1,8 +1,7 @@
-# THE KOSMOS SHELL
 ![version](https://img.shields.io/github/v/release/Potato-git13/kosmos?include_prereleases&style=for-the-badge)
 ![platforms](https://img.shields.io/badge/platforms-linux-brightgreen?style=for-the-badge)
-![made-with-c](https://forthebadge.com/images/badges/made-with-c.svg)
-
+![made-with-c](https://img.shields.io/badge/made%20with-C-red?style=for-the-badge)
+# THE KOSMOS SHELL
 A simple linux shell written in C
 
 # Installing
