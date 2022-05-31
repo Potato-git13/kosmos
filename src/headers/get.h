@@ -13,14 +13,14 @@ const char* whoami(){
     return user;
 }
 
-const char* get_host(){
+char* get_host(){
     // Get the name of the host machine
     char* host = malloc(HOST_NAME_MAX);
     gethostname(host, HOST_NAME_MAX);
     return host;
 }
 
-const char* get_homepath(){
+char* get_homepath(){
     char *homepath = malloc(PATHLEN);
     // Concatinate the string "/home/" and the username
     strcpy(homepath, "/home/");

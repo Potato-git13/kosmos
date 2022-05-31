@@ -49,6 +49,7 @@ Options:\n\
 
 int builtin_exit(){
     exit(EXIT_SUCCESS);
+    return 0;
 }
 
 int changedir(char *const *args){
