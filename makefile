@@ -1,10 +1,11 @@
 CFLAGS=-Wall -Wextra -Wpedantic -std=c17 -O3 -lreadline
+CC=gcc
 compile:
 	mkdir -p bin/
-	gcc -o bin/kosmos src/main.c $(CFLAGS)
+	$(CC) -o bin/kosmos src/main.c $(CFLAGS)
 compile-debug:
 	mkdir -p bin/
-	gcc -o bin/kosmos src/main.c -g $(CFLAGS)
+	$(CC) -o bin/kosmos src/main.c -g $(CFLAGS)
 run:
 	bin/kosmos
 push-to-user-bin:
