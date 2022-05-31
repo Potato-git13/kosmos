@@ -20,6 +20,7 @@ extern int errno;
 char  *g_buffer;
 char  *g_args[MAXARGS];
 char   g_path[PATHLEN];
+char   dest[COMMANDLEN];
 
 void command_line_arguments(int argc, char *argv[]){
     // If only one argument is given i.e "kosmos" drop to shell
@@ -131,7 +132,7 @@ void execute_command(char *const *args){
 }
 
 char *create_string(char *str, int len){
-    if (str[len - 1] == '\n')
+    if (str[len] == '\n')
         len--;
     char *newstr = malloc(len + 1);
     memcpy(newstr, str, len);
@@ -204,7 +205,6 @@ void mainloop(){
         create_history(hist_file);
 
     while (1){
-        char *dest = malloc(COMMANDLEN * sizeof(char));
         g_buffer = readline(prompt(homepath));
         // Handle history
         // If the buffer is not NULL save it to history
@@ -222,7 +222,7 @@ void mainloop(){
             trim(g_buffer, dest);
         else
             trim(g_buffer, g_buffer);
-        free(dest);
+        memset(dest, 0, strlen(dest));
         // Split the command
         args = split_command(g_buffer);
         free(g_buffer);
