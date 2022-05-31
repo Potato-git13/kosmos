@@ -23,7 +23,7 @@ const char* get_host(){
 const char* get_homepath(){
     char *homepath = malloc(PATHLEN);
     // Concatinate the string "/home/" and the username
-    strcat(homepath, "/home/");
+    strcpy(homepath, "/home/");
     strcat(homepath, whoami());
     return homepath;
 }

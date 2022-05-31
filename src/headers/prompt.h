@@ -13,11 +13,11 @@ const char *prompt(const char *homepath){
         return NULL;
     }
 
-    char *path = malloc(sizeof(cwd)+sizeof(homepath)+1);
+    char *path = malloc(PATHLEN);
     // This changes the homepath to ~ like other shells
     // If cwd contains the homepath replace the homepath with ~
     if (strstr(cwd, homepath)){
-        path[0] = '~';
+        strcpy(path, "~");
         memmove(cwd, cwd+strlen(homepath), sizeof(cwd));
         // Add the hyphen
         strcat(path, cwd);
@@ -25,11 +25,13 @@ const char *prompt(const char *homepath){
         strcpy(cwd, path);
     }
     free(path);
+    char *host = get_host();
     // Combine everything into a string and return it
     snprintf(shell_prompt, sizeof(shell_prompt), "[%s%s%s@%s%s%s]:%s%s%s$ ",
             YELLOWBOLD, whoami(), RESET,
-            BLUE, get_host(), RESET,
+            BLUE, host, RESET,
             MAGENTA, cwd, RESET);
+    free(host);
     return shell_prompt;
 }
 

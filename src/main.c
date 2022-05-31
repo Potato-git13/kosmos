@@ -96,7 +96,7 @@ const struct builtins builtins[] = {
 
 int builtin(char *const *args){
     // If the arguments given are the same as some builtin commands' name call them
-    for (int i = 0; i < SIZE(builtins); i++){
+    for (int i = 0; i < (int)SIZE(builtins); i++){
         if (!strcmp(builtins[i].name, args[0]))
             return builtins[i].func(args);
     }
@@ -214,7 +214,7 @@ void mainloop(){
         }
         history_truncate_file(hist_file, SAVEHIST);
         // Aliases
-        for (int i = 0; i < SIZE(aliases); i++){
+        for (int i = 0; i < (int)SIZE(aliases); i++){
             alias(dest, g_buffer, aliases[i].substring, aliases[i].replace);
         }
         // If dest contains a string use it to be trimmed, else use g_buffer
@@ -228,6 +228,10 @@ void mainloop(){
         free(g_buffer);
         // Execute the given command
         execute_command(args);
+        // Free the args array
+        for(int i = 0; i < (int)sizeof(args); i++){
+            free(args[i]);
+        }
     }
 }
 
