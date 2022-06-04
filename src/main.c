@@ -17,7 +17,7 @@
 
 extern int errno;
 
-char  *g_args[MAXARGS];
+char  *g_args[COMMANDLEN];
 char   g_path[PATHLEN];
 char   dest[COMMANDLEN];
 
@@ -151,10 +151,6 @@ char **split_command(char *cmd){
     */
     while (1){
         if (*cmd == ' ' || *cmd == '\0'){
-            if (argcnt == MAXARGS){
-                fprintf(stderr, "kosmos: too many arguments\n");
-                return NULL;
-            }
             // Create a new string and add it to the array
             g_args[argcnt++] = create_string(lastptr, len);
 
@@ -231,10 +227,6 @@ void mainloop(){
         free(g_buffer);
         // Execute the given command
         execute_command(args);
-        // Free the args array
-        for(int i = 0; i < (int)sizeof(args); i++){
-            free(args[i]);
-        }
     }
 }
 
