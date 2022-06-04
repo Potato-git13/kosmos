@@ -17,9 +17,9 @@
 
 extern int errno;
 
-char  *g_args[COMMANDLEN];
-char   g_path[PATHLEN];
-char   dest[COMMANDLEN];
+char *g_args[COMMANDLEN];
+char g_path[PATHLEN];
+char dest[COMMANDLEN];
 
 void command_line_arguments(int argc, char *argv[]){
     // If only one argument is given i.e "kosmos" drop to shell
@@ -116,10 +116,10 @@ int setenvvar(char *const *args){
 }
 
 // Define the builtins struct
-typedef int (*builtin_fpointer)(char *const *args);
+typedef int (*builtin_function_pointer)(char *const *args);
 struct builtins{
-    char *           name;
-    builtin_fpointer func;
+    char *                   name;
+    builtin_function_pointer func;
 };
 
 // Define the contents of the builtins struct
@@ -168,16 +168,16 @@ void execute_command(char *const *args){
 char *create_string(char *str, int len){
     if (str[len] == '\n')
         len--;
-    char *newstr = malloc(len * sizeof(char *) + 1);
-    memcpy(newstr, str, len);
-    newstr[len] = '\0';
-    return newstr;
+    char *new_str = malloc(len * sizeof(char *) + 1);
+    memcpy(new_str, str, len);
+    new_str[len] = '\0';
+    return new_str;
 }
 
 char **split_command(char *cmd){
     char *lastptr = cmd;
-    int   argcnt  = 0;
-    int   len     = 0;
+    int   argcnt = 0;
+    int   len = 0;
 
     /*
         Split the string given for every space and NULL character and return
