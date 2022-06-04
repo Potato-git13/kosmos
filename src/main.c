@@ -83,6 +83,38 @@ int changedir(char *const *args){
     return 0;
 }
 
+int setenvvar(char *const *args){
+    if(!args[2]){
+        fprintf(stderr, "export: not enough arguments\n");
+        return 0;
+    }
+    if(args[3]){
+        fprintf(stderr, "exprt: too many arguments\n");
+    }
+
+    char *envvar = args[1];
+    char *value = args[2];
+
+    char *env_buffer = getenv("PATH");
+    char *buffer = malloc(sizeof(env_buffer) + PATHLEN);
+
+    strcpy(buffer, value);
+    if(env_buffer){
+        strcat(buffer, ":");
+        strcat(buffer, env_buffer);
+    };
+
+    int i = setenv(envvar, buffer, 1);
+    if(i != 0){
+        printf("kosmos: %s\n", strerror(errno));
+        free(buffer);
+        return errno;
+    }
+
+    free(buffer);
+    return 0;
+}
+
 // Define the builtins struct
 typedef int (*builtin_fpointer)(char *const *args);
 struct builtins{
@@ -93,7 +125,9 @@ struct builtins{
 // Define the contents of the builtins struct
 const struct builtins builtins[] = {
     {"exit", &builtin_exit},
-    {"cd", &changedir}};
+    {"cd", &changedir},
+    {"export", &setenvvar}
+};
 
 int builtin(char *const *args){
     // If the arguments given are the same as some builtin commands' name call them
