@@ -1,4 +1,4 @@
-CFLAGS=-Wall -Wextra -Wpedantic -std=c17 -O3 -lreadline
+CFLAGS=-Wall -Wextra -Wpedantic -std=gnu17 -O3 -lreadline
 CC=gcc
 compile:
 	mkdir -p bin/
