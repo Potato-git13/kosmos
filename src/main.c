@@ -17,7 +17,6 @@
 
 extern int errno;
 
-char  *g_buffer;
 char  *g_args[MAXARGS];
 char   g_path[PATHLEN];
 char   dest[COMMANDLEN];
@@ -135,7 +134,7 @@ void execute_command(char *const *args){
 char *create_string(char *str, int len){
     if (str[len] == '\n')
         len--;
-    char *newstr = malloc(len + 1);
+    char *newstr = malloc(len * sizeof(char *) + 1);
     memcpy(newstr, str, len);
     newstr[len] = '\0';
     return newstr;
@@ -206,6 +205,7 @@ void mainloop(){
         create_history(hist_file);
 
     while (1){
+        char *g_buffer = malloc(COMMANDLEN);
         g_buffer = readline(prompt(homepath));
         // Handle history
         // If the buffer is not NULL save it to history
@@ -214,18 +214,20 @@ void mainloop(){
             append_history(1, hist_file);
         }
         history_truncate_file(hist_file, SAVEHIST);
+        // Trim the buffer
+        trim(g_buffer, g_buffer);
         // Aliases
         for (int i = 0; i < (int)SIZE(aliases); i++){
             alias(dest, g_buffer, aliases[i].substring, aliases[i].replace);
         }
-        // If dest contains a string use it to be trimmed, else use g_buffer
-        if(*dest)
-            trim(g_buffer, dest);
-        else
-            trim(g_buffer, g_buffer);
-        memset(dest, 0, strlen(dest));
+        // Set dest to g_buffer if dest is NULL
+        if (!*dest){
+            strcpy(dest, g_buffer);
+        }
         // Split the command
-        args = split_command(g_buffer);
+        args = split_command(dest);
+        // Reset dest and free g_buffer
+        memset(dest, 0, strlen(dest));
         free(g_buffer);
         // Execute the given command
         execute_command(args);
