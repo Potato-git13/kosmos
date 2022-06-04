@@ -21,4 +21,13 @@ const struct Aliases aliases[] = {
     ...
 };
 ```
+
+By editing the ```HISTSIZE``` and ```SAVEHIST``` variables you can customize how many lines are saved to history and how many lines are wrote to the history file located at ```~/.kosmos_history```.
+
 After editing the file you will have to recompile the shell.
+
+# Dependencies
+- readline
+- gcc
+
+To install those on ubuntu-based distros run ```sudo apt install libreadline-dev gcc```
