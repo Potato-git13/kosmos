@@ -46,12 +46,11 @@ Options:\n\
     }
 }
 
-int builtin_exit(){
+void builtin_exit(){
     exit(EXIT_SUCCESS);
-    return 0;
 }
 
-int changedir(char *const *args){
+void changedir(char *const *args){
     // Implementation of cd
     g_path[0] = '\0';
     char *temp = malloc(sizeof(g_path) * sizeof(char*));
@@ -79,14 +78,12 @@ int changedir(char *const *args){
     // Change the dir + errors
     if (chdir(g_path))
         fprintf(stderr, "cd: no such directory: %s\n", g_path);
-
-    return 0;
 }
 
-int setenvvar(char *const *args){
+void setenvvar(char *const *args){
     if(!args[2]){
         fprintf(stderr, "export: not enough arguments\n");
-        return 0;
+        return;
     }
     if(args[3]){
         fprintf(stderr, "exprt: too many arguments\n");
@@ -108,15 +105,14 @@ int setenvvar(char *const *args){
     if(i != 0){
         printf("kosmos: %s\n", strerror(errno));
         free(buffer);
-        return errno;
+        return;
     }
 
     free(buffer);
-    return 0;
 }
 
 // Define the builtins struct
-typedef int (*builtin_function_pointer)(char *const *args);
+typedef void (*builtin_function_pointer)(char *const *args);
 struct builtins{
     char *                   name;
     builtin_function_pointer func;
@@ -132,8 +128,10 @@ const struct builtins builtins[] = {
 int builtin(char *const *args){
     // If the arguments given are the same as some builtin commands' name call them
     for (int i = 0; i < (int)SIZE(builtins); i++){
-        if (!strcmp(builtins[i].name, args[0]))
-            return builtins[i].func(args);
+        if (!strcmp(builtins[i].name, args[0])){
+            builtins[i].func(args);
+            return 0;
+        }
     }
 
     return -1;
