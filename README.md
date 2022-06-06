@@ -8,7 +8,7 @@ A simple linux shell written in C
 ```
 git clone https://github.com/Potato-git13/kosmos.git
 cd kosmos/
-make compile push-to-global-bin
+make compile install
 ```
 
 # Customizing
