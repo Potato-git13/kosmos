@@ -169,9 +169,8 @@ void mainloop(){
         free(g_buffer);
         // Execute the given command
         execute_command(args);
-        for(int i = 0; i < (int)sizeof(args); i++){
+        for (int i = 0; i < 2; i++)
             free(args[i]);
-        }
     }
 }
 

@@ -49,7 +49,7 @@ void setenvvar(char *const *args){
     char *envvar = args[1];
     char *value = args[2];
 
-    char *env_buffer = getenv("PATH");
+    char *env_buffer = getenv(envvar);
     char *buffer = malloc(sizeof(env_buffer) + PATHLEN);
 
     strcpy(buffer, value);
