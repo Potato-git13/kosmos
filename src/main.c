@@ -77,6 +77,7 @@ void execute_command(char *const *args){
 char *create_string(char *str, int len){
     if (str[len] == '\n')
         len--;
+    // Create a string set it to str, set the last character to NULL and return it
     char *new_str = malloc(len * sizeof(char *));
     memcpy(new_str, str, len);
     new_str[len] = '\0';
@@ -124,15 +125,20 @@ void mainloop(){
     int argc;
     const char *homepath = get_homepath();
 
+    // Create the history file name
     char hist_file[sizeof(homepath) + sizeof("/.kosmos_history") * sizeof(char *)];
     strcpy(hist_file, homepath);
     strcat(hist_file, "/.kosmos_history");    
 
+    // History setup
     set_history(hist_file);
 
+    // Main loop
     while (1){
         char *g_buffer = malloc(COMMANDLEN);
+        // Get user input
         g_buffer = readline(prompt(homepath));
+
         // Handle history
         // Create the history file if it doesn't exist
         create_history(hist_file);
@@ -142,8 +148,10 @@ void mainloop(){
             append_history(1, hist_file);
         }
         history_truncate_file(hist_file, SAVEHIST);
+
         // Trim the buffer
         trim(g_buffer, g_buffer);
+
         // Aliases
         for (int i = 0; i < (int)SIZE(aliases); i++){
             alias(dest, g_buffer, aliases[i].substring, aliases[i].replace);
@@ -152,13 +160,16 @@ void mainloop(){
         if (!*dest){
             strcpy(dest, g_buffer);
         }
-        // Split the command
+
+        // Split the command and get the amount of arguments
         args = split_command(dest, &argc);
         // Reset dest and free g_buffer
         memset(dest, 0, strlen(dest));
         free(g_buffer);
         // Execute the given command
         execute_command(args);
+
+        // Free the arguments
         for (int i = 0; i < argc; i++)
             free(args[i]);
     }
