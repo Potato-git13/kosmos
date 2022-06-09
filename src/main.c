@@ -7,15 +7,14 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#include "headers/defvars.h"
-#include "headers/colors.h"
-#include "headers/trim.h"
-#include "headers/get.h"
-#include "headers/prompt.h"
-#include "headers/alias.h"
-#include "headers/builtins.h"
-#include "headers/history.h"
-
+#include "defvars.h"
+#include "colors.h"
+#include "trim.h"
+#include "get.h"
+#include "prompt.h"
+#include "alias.h"
+#include "builtins.h"
+#include "history.h"
 #include "config.h"
 
 extern int errno;
