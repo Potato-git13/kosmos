@@ -14,6 +14,7 @@
 #include "headers/prompt.h"
 #include "headers/alias.h"
 #include "headers/builtins.h"
+#include "headers/history.h"
 
 #include "config.h"
 
@@ -76,7 +77,7 @@ void execute_command(char *const *args){
 char *create_string(char *str, int len){
     if (str[len] == '\n')
         len--;
-    char *new_str = malloc(len * sizeof(char *) + 1);
+    char *new_str = malloc(len * sizeof(char *));
     memcpy(new_str, str, len);
     new_str[len] = '\0';
     return new_str;
@@ -118,36 +119,23 @@ char **split_command(char *cmd, int *count){
     return NULL;
 }
 
-void create_history(char *fname){
-    if (access(fname, F_OK) != 0) {
-        FILE *fp;
-        fp = fopen(fname, "w");
-        fclose(fp);
-        create_history(fname);
-    }
-}
-
 void mainloop(){
     char **args = NULL;
     int argc;
     const char *homepath = get_homepath();
 
-    char *hist_file = malloc(PATHLEN);
+    char hist_file[sizeof(homepath) + sizeof("/.kosmos_history") * sizeof(char *)];
     strcpy(hist_file, homepath);
-    strcat(hist_file, "/.kosmos_history");
+    strcat(hist_file, "/.kosmos_history");    
 
-    // TAB autocomplete
-    rl_bind_key('\t', rl_complete);
-    // Limit the history size
-    stifle_history(HISTSIZE);
-    // Create a history file if it cannot be read
-    if(read_history(hist_file)!=0)
-        create_history(hist_file);
+    set_history(hist_file);
 
     while (1){
         char *g_buffer = malloc(COMMANDLEN);
         g_buffer = readline(prompt(homepath));
         // Handle history
+        // Create the history file if it doesn't exist
+        create_history(hist_file);
         // If the buffer is not NULL save it to history
         if (*g_buffer != '\0'){
             add_history(g_buffer);
