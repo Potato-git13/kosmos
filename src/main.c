@@ -85,14 +85,54 @@ char *create_string(char *str, int len){
 
 char **split_command(char *cmd, int *count){
     char *lastptr = cmd;
-    int   argcnt = 0;
-    int   len = 0;
+    int argcnt = 0;
+    int len = 0;
+
+    int quote_cnt = 0;
+    int blocksize=0;
 
     /*
         Split the string given for every space and NULL character and return
         the array of arguments when finished
     */
     while (1){
+        if (*cmd == '"'){
+            quote_cnt++;
+            // First quote
+            if(quote_cnt==1){
+                // Set the block size use in for loops
+                blocksize = strlen(cmd);
+
+                // Remove the quote
+                for (int i=len;i<blocksize;i++){
+                    cmd[i]=cmd[i+1];
+                }
+
+                cmd++;
+                len++;
+
+                continue;
+            // Last quote
+            }else if(quote_cnt==2){
+                // Remove the quote
+                for (int i=len-blocksize+2;i<blocksize;i++){
+                    cmd[i]=cmd[i+1];
+                }
+
+                cmd++;
+                len++;
+                // Reset quote_cnt
+                quote_cnt=0;
+
+                continue;
+            }
+        // Qoute count isn't 0 but also isn't a quote
+        }else if (quote_cnt!=0){
+            cmd++;
+            len++;
+            continue;
+        }
+
         if (*cmd == ' ' || *cmd == '\0'){
             // Create a new string and add it to the array
             g_args[argcnt++] = create_string(lastptr, len);
