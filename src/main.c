@@ -82,7 +82,7 @@ char *create_string(char *str, int len){
     return new_str;
 }
 
-char **split_command(char *cmd){
+char **split_command(char *cmd, int *count){
     char *lastptr = cmd;
     int   argcnt = 0;
     int   len = 0;
@@ -103,6 +103,7 @@ char **split_command(char *cmd){
             */
             if (*cmd == '\0'){
                 g_args[argcnt] = 0;
+                *count = argcnt;
                 return g_args;
             }
 
@@ -128,6 +129,7 @@ void create_history(char *fname){
 
 void mainloop(){
     char **args = NULL;
+    int argc;
     const char *homepath = get_homepath();
 
     char *hist_file = malloc(PATHLEN);
@@ -163,13 +165,13 @@ void mainloop(){
             strcpy(dest, g_buffer);
         }
         // Split the command
-        args = split_command(dest);
+        args = split_command(dest, &argc);
         // Reset dest and free g_buffer
         memset(dest, 0, strlen(dest));
         free(g_buffer);
         // Execute the given command
         execute_command(args);
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < argc; i++)
             free(args[i]);
     }
 }
