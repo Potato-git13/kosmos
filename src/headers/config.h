@@ -25,4 +25,15 @@ void read_config(char *filename){
     }
 }
 
+void create_config(char *fname){
+    // If the file does not exist create it
+    if (access(fname, F_OK) != 0) {
+        FILE *fp;
+
+        printf("kosmos: the config file was not found. Creating an empty one");
+        fp = fopen(fname, "w");
+        fclose(fp);
+    }
+}
+
 #endif

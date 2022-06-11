@@ -242,8 +242,11 @@ int main(int argc, char* argv[]){
     strcpy(config_file, "/home/");
     strcat(config_file, whoami());
     strcat(config_file, "/.kosmosrc");
+
     // Initialise the aliases struct
     init_aliases();
+    // If the config file doesn't exist create an empty one
+    create_config(config_file);
     // Read the config file
     read_config(config_file);
     // Check the arguments
