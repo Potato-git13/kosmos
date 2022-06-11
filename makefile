@@ -1,8 +1,7 @@
 CFLAGS=-Wall -Wextra -Wpedantic -std=gnu17 -O3 -lreadline
 CC=gcc
 
-OUTDIR=bin/
-KOSMOS=bin/kosmos
+OUTDIR=bin
 FILES=src/main.c
 HEADERS=src/headers/
 
@@ -11,16 +10,16 @@ clean:
 
 compile:
 	mkdir -p $(OUTDIR)
-	$(CC) -o $(KOSMOS) $(FILES) -I$(HEADERS) $(CFLAGS)
+	$(CC) -o $(OUTDIR)/kosmos $(FILES) -I$(HEADERS) $(CFLAGS)
 
 compile-debug: CFLAGS += -g
 compile-debug: compile
 
-run:
-	$(KOSMOS)
+run: 
+	$(OUTDIR)/kosmos
 
 install:
-	sudo cp -p $(KOSMOS) /bin/kosmos
+	sudo cp -p $(OUTDIR)/kosmos /bin/kosmos
 
 uninstall:
 	sudo rm /bin/kosmos
