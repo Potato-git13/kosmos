@@ -22,7 +22,7 @@ extern int errno;
 void command_line_arguments(int argc, char *argv[]);
 void execute_command(char *const *args);
 char *create_string(char *str, int len);
-char **split_command(char *cmd, int *count)
+char **split_command(char *cmd, int *count);
 void mainloop();
 int main(int argc, char* argv[]);
 
