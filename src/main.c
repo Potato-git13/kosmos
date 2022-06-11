@@ -53,7 +53,8 @@ void command_line_arguments(int argc, char *argv[]){
 Usage: kosmos [<option>]\n\n\
 Options:\n\
 \t-h\tshow this message, then exit\n\
-\t-v\tshow the kosmos version number, then exit\n");
+\t-v\tshow the kosmos version number, then exit\n\
+\t-c\tread the commands from the arguments after the flag, then exit\n");
         exit(EXIT_SUCCESS);
     // Version number
     } else if (!strcmp(argv[1], "-v")){
