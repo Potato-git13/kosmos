@@ -128,11 +128,12 @@ void help(){
 kosmos, version %s\n\
 These commands are defined inside the shell\n\n\
 \
-alias - alias NAME VALUE\n\
-cd - cd PATH\n\
-clear-history\n\
-exit\n\
-export - export NAME VALUE\n", VERSION);
+ alias - alias NAME VALUE\n\
+ cd - cd PATH\n\
+ clear-history\n\
+ exit\n\
+ export - export NAME VALUE\n\
+ help - shows this message\n", VERSION);
 }
 
 // Define the builtins struct
