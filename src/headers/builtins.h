@@ -1,9 +1,17 @@
 #ifndef BUILTINS_HEADER
 #define BUILTINS_HEADER
 
+#include "../config.h"
+
 char g_path[PATHLEN];
+int nelements;
+
+struct Aliases **aliases;
+
+void free_aliases();
 
 void builtin_exit(){
+    free_aliases();
     exit(EXIT_SUCCESS);
 }
 
@@ -68,6 +76,32 @@ void setenvvar(char *const *args){
     free(buffer);
 }
 
+void init_aliases(){
+    aliases = calloc(MAX_ALIASES, sizeof(struct Aliases*));
+}
+
+void free_aliases(){
+    for(int i = 0; i < nelements; i++){
+        free(aliases[i]);
+    }
+}
+
+void alias_cmd(char *const *args){
+    if(!args[2]){
+        printf("alias: not enough arguments\n");
+        return;
+    }
+    if(args[3]){
+        printf("alias: too many arguments\n");
+    }
+
+    aliases[nelements] = calloc(1, sizeof(struct Aliases));
+    strcpy(aliases[nelements]->substring, args[1]);
+    strcpy(aliases[nelements]->replace, args[2]);
+    for(int i = 0; i < nelements+1; i++)
+        printf("%s, %s\n", aliases[i]->substring, aliases[i]->replace);
+    nelements++;
+}
 // Define the builtins struct
 typedef void (*builtin_function_pointer)(char *const *args);
 struct builtins{
@@ -79,7 +113,8 @@ struct builtins{
 const struct builtins builtins[] = {
     {"exit", &builtin_exit},
     {"cd", &changedir},
-    {"export", &setenvvar}
+    {"export", &setenvvar},
+    {"alias", &alias_cmd}
 };
 
 int builtin(char *const *args){

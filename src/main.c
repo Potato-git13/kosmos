@@ -172,6 +172,9 @@ void mainloop(){
     // History setup
     set_history(hist_file);
 
+    // Initialise the aliases struct
+    init_aliases();
+
     // Main loop
     while (1){
         char *g_buffer = malloc(COMMANDLEN);
@@ -192,8 +195,8 @@ void mainloop(){
         trim(g_buffer, g_buffer);
 
         // Aliases
-        for (int i = 0; i < (int)SIZE(aliases); i++){
-            alias(dest, g_buffer, aliases[i].substring, aliases[i].replace);
+        for (int i = 0; i < nelements; i++){
+            alias(dest, g_buffer, aliases[i]->substring, aliases[i]->replace);
         }
         // Set dest to g_buffer if dest is NULL
         if (!*dest){
