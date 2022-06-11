@@ -37,6 +37,10 @@ void command_line_arguments(int argc, char *argv[]){
     // Command is read from the arguments
     if (!strcmp(argv[1], "-c")){
         // Remove the first 2 arguments from the array i.e. "kosmos", "-c"
+        if (!argv[2]){
+            fprintf(stderr, "kosmos: no arguments to be executed\n");
+            exit(EXIT_FAILURE);
+        }
         for (int i=0; i<argc; i++){
             argv[i]=argv[i+2];
         }
