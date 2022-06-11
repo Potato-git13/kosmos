@@ -1,6 +1,7 @@
-![version](https://img.shields.io/github/v/release/Potato-git13/kosmos?include_prereleases&style=for-the-badge)
-![platforms](https://img.shields.io/badge/platforms-linux-brightgreen?style=for-the-badge)
-![made-with-c](https://img.shields.io/badge/made%20with-C-red?style=for-the-badge)
+![Version](https://img.shields.io/github/v/release/Potato-git13/kosmos?include_prereleases)
+![Platforms](https://img.shields.io/badge/platforms-linux-brightgreen)
+![Made-with-c](https://img.shields.io/badge/made%20with-C-red)
+[![Downloads](https://img.shields.io/github/downloads/potato-git13/kosmos/total.svg?maxAge=2592001)](https://github.com/potato-git13/kosmos/releases/)
 # THE KOSMOS SHELL
 A simple linux shell written in C
 
