@@ -4,6 +4,7 @@
 #include "../config.h"
 
 void create_history(char *fname){
+    // If the file does not exist create it
     if (access(fname, F_OK) != 0) {
         FILE *fp;
         fp = fopen(fname, "w");
@@ -18,7 +19,7 @@ void set_history(char *hist_file){
     // Limit the history size
     stifle_history(HISTSIZE);
     // Create a history file if it cannot be read
-    if(read_history(hist_file)!=0)
+    if(read_history(hist_file) != 0)
         create_history(hist_file);
 }
 

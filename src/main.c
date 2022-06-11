@@ -19,7 +19,12 @@
 
 extern int errno;
 
+void command_line_arguments(int argc, char *argv[]);
 void execute_command(char *const *args);
+char *create_string(char *str, int len);
+char **split_command(char *cmd, int *count)
+void mainloop();
+int main(int argc, char* argv[]);
 
 char *g_args[COMMANDLEN];
 char dest[COMMANDLEN];
@@ -29,8 +34,9 @@ void command_line_arguments(int argc, char *argv[]){
     if (argc == 1){
         return;
     }
-
+    // Command is read from the arguments
     if (!strcmp(argv[1], "-c")){
+        // Remove the first 2 arguments from the array i.e. "kosmos", "-c"
         for (int i=0; i<argc; i++){
             argv[i]=argv[i+2];
         }
@@ -98,7 +104,7 @@ char **split_command(char *cmd, int *count){
     int len = 0;
 
     int quote_cnt = 0;
-    int blocksize=0;
+    int blocksize = 0;
 
     /*
         Split the string given for every space and NULL character and return
@@ -108,13 +114,13 @@ char **split_command(char *cmd, int *count){
         if (*cmd == '"'){
             quote_cnt++;
             // First quote
-            if(quote_cnt==1){
+            if(quote_cnt == 1){
                 // Set the block size use in for loops
                 blocksize = strlen(cmd);
 
                 // Remove the quote
-                for (int i=len;i<blocksize;i++){
-                    cmd[i]=cmd[i+1];
+                for (int i = len; i < blocksize; i++){
+                    cmd[i] = cmd[i+1];
                 }
 
                 cmd++;
@@ -122,21 +128,21 @@ char **split_command(char *cmd, int *count){
 
                 continue;
             // Last quote
-            }else if(quote_cnt==2){
+            }else if(quote_cnt == 2){
                 // Remove the quote
-                for (int i=len-blocksize+2;i<blocksize;i++){
-                    cmd[i]=cmd[i+1];
+                for (int i = len - blocksize + 2; i < blocksize; i++){
+                    cmd[i] = cmd[i+1];
                 }
 
                 cmd++;
                 len++;
                 // Reset quote_cnt
-                quote_cnt=0;
+                quote_cnt = 0;
 
                 continue;
             }
         // Qoute count isn't 0 but also isn't a quote
-        }else if (quote_cnt!=0){
+        }else if (quote_cnt != 0){
             cmd++;
             len++;
             continue;
@@ -173,7 +179,7 @@ void mainloop(){
     int argc;
     const char *homepath = get_homepath();
 
-    // Create the history file name for a single use and is then redefined inside the loop
+    // Create the history filename for a single use and is then redefined inside the loop
     char *hist_file = malloc(sizeof(homepath) + sizeof("/.kosmos_history") * sizeof(char *));
     create_hist_name(homepath, hist_file);
 
@@ -186,6 +192,7 @@ void mainloop(){
 
     // Main loop
     while (1){
+        // Create the history filename
         char *hist_file = malloc(sizeof(homepath) + sizeof("/.kosmos_history") * sizeof(char *));
         create_hist_name(homepath, hist_file);
 
@@ -230,7 +237,7 @@ void mainloop(){
     }
 }
 
-int main(int argc,char* argv[]){
+int main(int argc, char* argv[]){
     // Check the arguments
     command_line_arguments(argc, argv);
     // Enter the main loop of the shell

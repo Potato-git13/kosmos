@@ -18,7 +18,7 @@ const char *prompt(const char *homepath){
     // If cwd contains the homepath replace the homepath with ~
     if (strstr(cwd, homepath)){
         strcpy(path, "~");
-        memmove(cwd, cwd+strlen(homepath), sizeof(cwd));
+        memmove(cwd, cwd + strlen(homepath), sizeof(cwd));
         // Add the hyphen
         strcat(path, cwd);
         // Push all that into cwd

@@ -46,6 +46,13 @@ void changedir(char *const *args){
 }
 
 void setenvvar(char *const *args){
+    char *envvar = args[1];
+    char *value = args[2];
+
+    char *env_buffer = getenv(envvar);
+    char *buffer = malloc(sizeof(env_buffer) + PATHLEN);
+
+    // Errors
     if(!args[2]){
         fprintf(stderr, "export: not enough arguments\n");
         return;
@@ -54,19 +61,16 @@ void setenvvar(char *const *args){
         fprintf(stderr, "exprt: too many arguments\n");
     }
 
-    char *envvar = args[1];
-    char *value = args[2];
-
-    char *env_buffer = getenv(envvar);
-    char *buffer = malloc(sizeof(env_buffer) + PATHLEN);
-
+    // Concatinate the given value and the environemnmt value with a ':'
     strcpy(buffer, value);
     if(env_buffer){
         strcat(buffer, ":");
         strcat(buffer, env_buffer);
     };
 
+    // Set the environment variable to the concatinated string
     int i = setenv(envvar, buffer, 1);
+    // Errors
     if(i != 0){
         printf("kosmos: %s\n", strerror(errno));
         free(buffer);
@@ -81,12 +85,14 @@ void init_aliases(){
 }
 
 void free_aliases(){
+    // Free the contents of the aliases struct
     for(int i = 0; i < nelements; i++){
         free(aliases[i]);
     }
 }
 
 void alias_cmd(char *const *args){
+    // Errors
     if(!args[2]){
         printf("alias: not enough arguments\n");
         return;
@@ -95,6 +101,7 @@ void alias_cmd(char *const *args){
         printf("alias: too many arguments\n");
     }
 
+    // Allocate a new member and copy the command line arguments to it
     aliases[nelements] = calloc(1, sizeof(struct Aliases));
     strcpy(aliases[nelements]->substring, args[1]);
     strcpy(aliases[nelements]->replace, args[2]);
@@ -117,6 +124,7 @@ void clear_hist(){
 }
 
 void help(){
+    // Show a help message
     printf("\
 kosmos, version %s\n\
 These commands are defined inside the shell\n\n\

@@ -6,8 +6,8 @@ int gethostname(char *name, size_t len);
 
 const char* whoami(){
     // Get the name of the user
-    char *user=getenv("USER");
-    if(user==NULL)
+    char *user = getenv("USER");
+    if(user == NULL)
         printf("kosmos: user could not be found");
 
     return user;
