@@ -12,17 +12,14 @@ make compile install
 ```
 
 # Customizing
-If you want to customize the aliases you can edit the ```src/config.h``` file and add an entry like so:
+To add aliases and set environemnt varaibles there are buitlin functions for that. Example:
+
 ```
-const struct Aliases aliases[] = {
-    {"ls", "ls --color"},
-    {"grep", "grep --color"},
-    ...
-    ...
-};
+alias ls "ls ---color"
+export PATH /bin
 ```
 
-By editing the ```HISTSIZE``` and ```SAVEHIST``` variables you can customize how many lines are saved to history and how many lines are wrote to the history file located at ```~/.kosmos_history```.
+By editing the ```HISTSIZE``` and ```SAVEHIST``` variables in the ```src/config.h``` file you can customize how many lines are saved to history and how many lines are wrote to the history file located at ```~/.kosmos_history```.
 
 After editing the file you will have to recompile the shell.
 
