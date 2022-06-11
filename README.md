@@ -19,7 +19,9 @@ alias ls "ls ---color"
 export PATH /bin
 ```
 
-By editing the ```HISTSIZE``` and ```SAVEHIST``` variables in the ```src/config.h``` file you can customize how many lines are saved to history and how many lines are wrote to the history file located at ```~/.kosmos_history```.
+When the shell is started it will read from the resource file located at ```/home/USER/.kosmosrc``` and execute the commands given in it
+
+By editing the ```HISTSIZE``` and ```SAVEHIST``` variables in the ```src/headers/defvars.h``` file you can customize how many lines are saved to history and how many lines are wrote to the history file located at ```~/.kosmos_history```.
 
 After editing the file you will have to recompile the shell.
 
