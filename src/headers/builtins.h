@@ -116,6 +116,18 @@ void clear_hist(){
     free(hist_file);
 }
 
+void help(){
+    printf("\
+kosmos, version %s\n\
+These commands are defined inside the shell\n\n\
+\
+alias - alias NAME VALUE\n\
+cd - cd PATH\n\
+clear-history\n\
+exit\n\
+export - export NAME VALUE\n", VERSION);
+}
+
 // Define the builtins struct
 typedef void (*builtin_function_pointer)(char *const *args);
 struct builtins{
@@ -129,7 +141,8 @@ const struct builtins builtins[] = {
     {"cd", &changedir},
     {"export", &setenvvar},
     {"alias", &alias_cmd},
-    {"clear-history", &clear_hist}
+    {"clear-history", &clear_hist},
+    {"help", &help}
 };
 
 int builtin(char *const *args){
