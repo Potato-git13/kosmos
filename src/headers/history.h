@@ -1,8 +1,6 @@
 #ifndef HISTORY_HEADER
 #define HISTORY_HEADER
 
-#include "../config.h"
-
 void create_history(char *fname){
     // If the file does not exist create it
     if (access(fname, F_OK) != 0) {

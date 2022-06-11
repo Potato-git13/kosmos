@@ -187,9 +187,6 @@ void mainloop(){
     set_history(hist_file);
     free(hist_file);
 
-    // Initialise the aliases struct
-    init_aliases();
-
     // Main loop
     while (1){
         // Create the history filename
@@ -238,6 +235,16 @@ void mainloop(){
 }
 
 int main(int argc, char* argv[]){
+    char *config_file = malloc(sizeof("/home/") + sizeof(whoami()) + sizeof("/.kosmosrc") * sizeof(char *));
+
+    // Create the config file path /home/USER/.kosmosrc
+    strcpy(config_file, "/home/");
+    strcat(config_file, whoami());
+    strcat(config_file, "/.kosmosrc");
+    // Initialise the aliases struct
+    init_aliases();
+    // Read the config file
+    read_config(config_file);
     // Check the arguments
     command_line_arguments(argc, argv);
     // Enter the main loop of the shell

@@ -1,11 +1,10 @@
 #ifndef BUILTINS_HEADER
 #define BUILTINS_HEADER
 
-#include "../config.h"
 #include "history.h"
 
 char g_path[PATHLEN];
-int nelements;
+int nelements = 0;
 
 struct Aliases **aliases;
 void free_aliases();
