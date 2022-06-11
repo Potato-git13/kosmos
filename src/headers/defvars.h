@@ -2,7 +2,7 @@
 #define DEFVARS_HEADER
 
 // Variable definitions
-#define VERSION "0.1.0"
+#define VERSION "0.1.2"
 #define MAXARGS 32
 #define COMMANDLEN 1024
 #define PATHLEN 256
