@@ -98,8 +98,6 @@ void alias_cmd(char *const *args){
     aliases[nelements] = calloc(1, sizeof(struct Aliases));
     strcpy(aliases[nelements]->substring, args[1]);
     strcpy(aliases[nelements]->replace, args[2]);
-    for(int i = 0; i < nelements+1; i++)
-        printf("%s, %s\n", aliases[i]->substring, aliases[i]->replace);
     nelements++;
 }
 // Define the builtins struct
