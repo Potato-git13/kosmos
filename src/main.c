@@ -19,6 +19,8 @@
 
 extern int errno;
 
+void execute_command(char *const *args);
+
 char *g_args[COMMANDLEN];
 char dest[COMMANDLEN];
 
@@ -28,6 +30,13 @@ void command_line_arguments(int argc, char *argv[]){
         return;
     }
 
+    if (!strcmp(argv[1], "-c")){
+        for (int i=0; i<argc; i++){
+            argv[i]=argv[i+2];
+        }
+        execute_command(argv);
+        exit(EXIT_SUCCESS);
+    }
     // If there are to many arguments print an error and exits
     if (argc > 2){
         fprintf(stderr, "kosmos: too many arguments supplied\n");
