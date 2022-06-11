@@ -2,12 +2,12 @@
 #define BUILTINS_HEADER
 
 #include "../config.h"
+#include "history.h"
 
 char g_path[PATHLEN];
 int nelements;
 
 struct Aliases **aliases;
-
 void free_aliases();
 
 void builtin_exit(){
@@ -100,6 +100,22 @@ void alias_cmd(char *const *args){
     strcpy(aliases[nelements]->replace, args[2]);
     nelements++;
 }
+
+void clear_hist(){
+    char *homepath = get_homepath();
+    char *hist_file = malloc(sizeof(homepath) + sizeof("/.kosmos_history") * sizeof(char *));
+    create_hist_name(homepath, hist_file);
+
+    // Open the file for writing and close it - clearing it
+    FILE *fp = fopen(hist_file, "w");
+    fclose(fp);
+    // Clear the history in memory
+    rl_clear_history();
+
+    free(homepath);
+    free(hist_file);
+}
+
 // Define the builtins struct
 typedef void (*builtin_function_pointer)(char *const *args);
 struct builtins{
@@ -112,7 +128,8 @@ const struct builtins builtins[] = {
     {"exit", &builtin_exit},
     {"cd", &changedir},
     {"export", &setenvvar},
-    {"alias", &alias_cmd}
+    {"alias", &alias_cmd},
+    {"clear-history", &clear_hist}
 };
 
 int builtin(char *const *args){

@@ -22,4 +22,10 @@ void set_history(char *hist_file){
         create_history(hist_file);
 }
 
+void create_hist_name(const char *homepath, char *hist_file){
+    // Concatinating the homepath and "/.kosmos_history"
+    strcpy(hist_file, homepath);
+    strcat(hist_file, "/.kosmos_history"); 
+}
+
 #endif

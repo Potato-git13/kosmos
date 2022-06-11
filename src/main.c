@@ -164,19 +164,22 @@ void mainloop(){
     int argc;
     const char *homepath = get_homepath();
 
-    // Create the history file name
-    char hist_file[sizeof(homepath) + sizeof("/.kosmos_history") * sizeof(char *)];
-    strcpy(hist_file, homepath);
-    strcat(hist_file, "/.kosmos_history");    
+    // Create the history file name for a single use and is then redefined inside the loop
+    char *hist_file = malloc(sizeof(homepath) + sizeof("/.kosmos_history") * sizeof(char *));
+    create_hist_name(homepath, hist_file);
 
     // History setup
     set_history(hist_file);
+    free(hist_file);
 
     // Initialise the aliases struct
     init_aliases();
 
     // Main loop
     while (1){
+        char *hist_file = malloc(sizeof(homepath) + sizeof("/.kosmos_history") * sizeof(char *));
+        create_hist_name(homepath, hist_file);
+
         char *g_buffer = malloc(COMMANDLEN);
         // Get user input
         g_buffer = readline(prompt(homepath));
@@ -214,6 +217,7 @@ void mainloop(){
         // Free the arguments
         for (int i = 0; i < argc; i++)
             free(args[i]);
+        free(hist_file);
     }
 }
 
