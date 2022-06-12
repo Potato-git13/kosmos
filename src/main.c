@@ -242,17 +242,17 @@ void mainloop(){
 int main(int argc, char* argv[]){
     char *config_file = malloc(sizeof("/home/") + sizeof(whoami()) + sizeof("/.kosmosrc") * sizeof(char *));
 
-    // Create the config file path /home/USER/.kosmosrc
-    strcpy(config_file, "/home/");
-    strcat(config_file, whoami());
-    strcat(config_file, "/.kosmosrc");
-
     // Initialise the aliases struct
     init_aliases();
+
+    // Create the config filename
+    create_config_name(config_file);
     // If the config file doesn't exist create an empty one
     create_config(config_file);
     // Read the config file
     read_config(config_file);
+    free(config_file);
+
     // Check the arguments
     command_line_arguments(argc, argv);
     // Enter the main loop of the shell

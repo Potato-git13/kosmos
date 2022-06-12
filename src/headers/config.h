@@ -36,4 +36,13 @@ void create_config(char *fname){
     }
 }
 
+char *create_config_name(char *config_file){
+    // Create the config file path /home/USER/.kosmosrc
+    strcpy(config_file, "/home/");
+    strcat(config_file, whoami());
+    strcat(config_file, "/.kosmosrc");
+
+    return config_file;
+}
+
 #endif
