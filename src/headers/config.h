@@ -34,7 +34,7 @@ void create_config(char *fname){
     if (access(fname, F_OK) != 0) {
         FILE *fp;
 
-        printf("kosmos: the config file was not found. Creating an empty one");
+        printf("kosmos: the config file was not found. Creating an empty one\n");
         fp = fopen(fname, "w");
         fclose(fp);
     }
