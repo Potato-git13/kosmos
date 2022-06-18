@@ -1,6 +1,10 @@
 #ifndef CONFIG_HEADER
 #define CONFIG_HEADER
 
+void read_config(char *filename);
+void create_config(char *fname);
+char *create_config_name(char *config_file);
+
 void execute_command(char *const *args);
 char **split_command(char *cmd, int *count);
 

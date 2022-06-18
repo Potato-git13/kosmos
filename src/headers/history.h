@@ -1,6 +1,10 @@
 #ifndef HISTORY_HEADER
 #define HISTORY_HEADER
 
+void create_history(char *fname);
+void set_history(char *hist_file);
+void create_hist_name(const char *homepath, char *hist_file);
+
 void create_history(char *fname){
     // If the file does not exist create it
     if (access(fname, F_OK) != 0) {

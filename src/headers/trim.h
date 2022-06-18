@@ -1,8 +1,9 @@
 #ifndef TRIM_HEADER
 #define TRIM_HEADER
 
-void trim (char *dest, char *src)
-{
+void trim(char *dest, char *src);
+
+void trim (char *dest, char *src){
     // Check for existance
     if (!src || !dest)
        return;

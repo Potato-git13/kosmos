@@ -1,6 +1,8 @@
 #ifndef PROMPT_HEADER
 #define PROMPT_HEADER
 
+const char *prompt(const char *homepath);
+
 char shell_prompt[512];
 
 const char *prompt(const char *homepath){

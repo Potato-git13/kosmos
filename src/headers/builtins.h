@@ -3,6 +3,16 @@
 
 #include "history.h"
 
+void builtin_exit();
+void changedir(char *const *args);
+void setenvvar(char *const *args);
+void setenvvar(char *const *args);
+void free_aliases();
+void alias_cmd(char *const *args);
+void clear_hist();
+void help();
+int builtin(char *const *args);
+
 char g_path[PATHLEN];
 int nelements = 0;
 

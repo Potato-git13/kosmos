@@ -1,6 +1,8 @@
 #ifndef ALIAS_HEADER
 #define ALIAS_HEADER
 
+void alias(char *dest, const char *src, const char* substring, const char *replace);
+
 void alias(char *dest, const char *src, const char* substring, const char *replace){
     int substring_len = strlen(substring);
     // Check if src starts with substring if so set the value of dest to NULL and exit the function

@@ -1,6 +1,10 @@
 #ifndef GET_HEADER
 #define GET_HEADER
 
+const char* whoami();
+char* get_host();
+char* get_homepath();
+
 // Define the function to avoid warnings during compilation
 int gethostname(char *name, size_t len);
 
