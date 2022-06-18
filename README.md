@@ -37,8 +37,9 @@ Compile the project with ```make compile-debug``` for more information when debu
 
 - readline
 - gcc
+- make
 
-To install those on ubuntu-based distros, run: ```sudo apt install libreadline-dev gcc```.
+To install those on ubuntu-based distros, run: ```sudo apt install libreadline-dev gcc make```.
 
 # Usage
 
