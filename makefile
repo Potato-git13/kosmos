@@ -19,7 +19,7 @@ compile-debug: compile
 run: compile $(OUTNAME)
 	$(OUTNAME)
 
-install: /bin/kosmos
+install:
 	sudo cp -p $(OUTNAME) /bin/kosmos
 
 uninstall: /bin/kosmos
