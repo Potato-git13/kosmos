@@ -7,7 +7,7 @@
 
 ## A Simple Linux Shell Written in C
 
-This is a simple shell made for fun. It is written in the C programming language and is following the gnu17 standard. Use it to interact with your Linux system. It is configured with a resource file at ```~/.kosmosrc```. The shell supports basic autocompletion of filenames. Any program can be run in it + some built-in functions.
+This is a simple shell made for fun. It is written in the C programming language and is following the gnu17 standard. Use it to interact with your Linux system. It is configured with a resource file at ```~/.kosmosrc```. The shell supports basic autocompletion of filenames. Any program can be run in it, including some built-in functions.
 
 # Installing
 
@@ -20,11 +20,11 @@ git clone https://github.com/Potato-git13/kosmos.git
 cd kosmos/
 make compile install
 ```
-It is recommended to download from the repository page to get the latest updates and fixes. If you download the shell from the release page, you will have to manually copy the binary to ```/bin```.
+It is recommended to download from the repository to get the latest updates and fixes. If you download the shell from the release page, you will have to manually copy the binary to ```/bin```.
 
 ## For Developers
 
-Run these commands to clone the repository and change the current directory to it:
+Run these commands to clone the repository and to change the current directory to it:
 ```
 git clone https://github.com/Potato-git13/kosmos.git
 cd kosmos/
@@ -46,7 +46,7 @@ If you already installed it, run ```kosmos``` from the terminal, otherwise you c
 
 ## Customizing
 
-To add aliases and set environment variables, there are built-in functions for that. Example:
+There are built-in functions to add aliases and set environment variables. Example:
 
 ```
 alias ls "ls ---color"
@@ -70,7 +70,7 @@ The history file is located at ```~/.kosmos_history```. Everything entered into 
 Contributing is as easy as:
 - creating a fork of the repository,
 - adding your changes,
-- opening a pull request
+- opening a pull request.
 
 ## Guidelines
 
@@ -82,7 +82,7 @@ Please add comments to your code, so everyone can understand what's happening.
 
 ### Explain your Pull Request
 
-In your pull request explain what issue you fixed/what you added. If you are fixing an issue, reference the issue number in the pull request message.
+In your pull request, explain the issue you fixed/what you added. If you are fixing an issue, reference the issue number in the pull request message.
 
 ### Be Civil
 
