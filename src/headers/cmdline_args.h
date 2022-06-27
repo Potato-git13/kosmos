@@ -3,6 +3,14 @@
 
 void command_line_arguments(int argc, char *argv[]);
 
+const char help_msg[] =
+    "Usage: kosmos [<option>]\n\n"
+    "Options:\n"
+    "\t-h, --help\tshow this message, then exit\n"
+    "\t-v, --version\tshow the kosmos version number, then exit\n"
+    "\t-c\t\tread the commands from the arguments after the flag, then exit\n"
+    ;
+
 void command_line_arguments(int argc, char *argv[]){
     // If only one argument is given i.e "kosmos" drop to shell
     if (argc == 1){
@@ -27,12 +35,7 @@ void command_line_arguments(int argc, char *argv[]){
         exit(EXIT_FAILURE);
     // Help message
     } else if (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")){
-        printf("\
-Usage: kosmos [<option>]\n\n\
-Options:\n\
-\t-h, --help\tshow this message, then exit\n\
-\t-v, --version\tshow the kosmos version number, then exit\n\
-\t-c\t\tread the commands from the arguments after the flag, then exit\n");
+        printf("%s", help_msg);
         exit(EXIT_SUCCESS);
     // Version number
     } else if (!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version")){
