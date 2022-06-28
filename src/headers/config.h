@@ -7,6 +7,7 @@ char *create_config_name(char *config_file);
 
 void execute_command(char *const *args);
 char **split_command(char *cmd, int *count);
+void env_vars(char **args, int argc);
 
 void read_config(char *filename){
     FILE *fp = fopen(filename, "r");
@@ -20,6 +21,7 @@ void read_config(char *filename){
 
         // Split the arguments and execute them
         args = split_command(buffer, &argc);
+        env_vars(args, argc);
         execute_command(args);
 
         // Reset the buffer and free the arguments
