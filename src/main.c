@@ -157,6 +157,7 @@ void env_vars(char **args, int argc){
         const char *p = strstr(tmp, "$");
         // If none are found go back to the top
         if (p == NULL){
+            free(buffer);
             continue;
         }
 
