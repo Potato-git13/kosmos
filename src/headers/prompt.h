@@ -1,42 +1,10 @@
 #ifndef PROMPT_HEADER
 #define PROMPT_HEADER
 
-const char *prompt(const char *homepath);
 void str_replace(char *stack, const char *needle, const char *replacement);
+const char *prompt(const char *homepath);
 
 char shell_prompt[1024];
-
-void str_replace(char *stack, const char *needle, const char *replacement)
-{
-    char buffer[1024] = {0};
-    char *insert_point = &buffer[0];
-    const char *tmp = stack;
-    size_t needle_len = strlen(needle);
-    size_t repl_len = strlen(replacement);
-
-    while (1) {
-        const char *p = strstr(tmp, needle);
-
-        // Walked past last occurrence of needle; copy remaining part
-        if (p == NULL) {
-            strcpy(insert_point, tmp);
-            break;
-        }
-
-        // Copy part before needle
-        memcpy(insert_point, tmp, p - tmp);
-        insert_point += p - tmp;
-
-        // Copy replacement string
-        memcpy(insert_point, replacement, repl_len);
-        insert_point += repl_len;
-
-        tmp = p + needle_len;
-    }
-
-    // Write the finished string back to stack
-    strcpy(stack, buffer);
-}
 
 const char *prompt(const char *homepath){
     // Create a prompt for the user
@@ -86,7 +54,7 @@ const char *prompt(const char *homepath){
                         "\\reset\\"}; 
     
     // Asign a symbol for every color
-    for (int i = 0; i < SIZE(color_arr); i++){
+    for (int i = 0; i < (int)SIZE(color_arr); i++){
         str_replace(shell_prompt, color_symbols[i], color_arr[i]);
     }
 
