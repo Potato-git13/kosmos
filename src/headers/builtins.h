@@ -58,8 +58,7 @@ void setenvvar(char *const *args){
     char *envvar = args[1];
     char *value = args[2];
 
-    char *env_buffer = getenv(envvar);
-    char *buffer = malloc(sizeof(env_buffer) + PATHLEN);
+    char *buffer = malloc(PATHLEN);
 
     // Errors
     if(!args[2]){
@@ -67,17 +66,13 @@ void setenvvar(char *const *args){
         return;
     }
     if(args[3]){
-        fprintf(stderr, "exprt: too many arguments\n");
+        fprintf(stderr, "export: too many arguments\n");
+        return;
     }
 
-    // Concatinate the given value and the environemnmt value with a ':'
     strcpy(buffer, value);
-    if(env_buffer){
-        strcat(buffer, ":");
-        strcat(buffer, env_buffer);
-    };
 
-    // Set the environment variable to the concatinated string
+    // Set the environment variable to the buffer
     int i = setenv(envvar, buffer, 1);
     // Errors
     if(i != 0){
