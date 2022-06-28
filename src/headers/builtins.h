@@ -39,14 +39,6 @@ void changedir(char *const *args){
         strcat(g_path, whoami());
     }
 
-    if (g_path[0] == '~'){
-        memmove(&g_path[0], &g_path[1], strlen(g_path) - 0);
-        strcpy(temp, g_path);
-
-        strcpy(g_path, "/home/");
-        strcat(g_path, whoami());
-        strcat(g_path, temp);
-    }
     free(temp);
 
     // Change the dir + errors

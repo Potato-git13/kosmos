@@ -245,6 +245,8 @@ void mainloop(){
             strcpy(dest, g_buffer);
         }
 
+        str_replace(dest, "~", homepath);
+
         // Split the command and get the amount of arguments
         args = split_command(dest, &argc);
         // Reset dest and free g_buffer
