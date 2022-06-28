@@ -17,6 +17,7 @@
 #include "history.h"
 #include "config.h"
 #include "cmdline_args.h"
+#include "strreplace.h"
 
 extern int errno;
 
@@ -115,6 +116,10 @@ char **split_command(char *cmd, int *count){
             continue;
         }
 
+        if (*cmd == '$'){
+            len += COMMANDLEN;
+        }
+
         if (*cmd == ' ' || *cmd == '\0'){
             // Create a new string and add it to the array
             g_args[argcnt++] = create_string(lastptr, len);
@@ -191,6 +196,30 @@ void mainloop(){
         // Reset dest and free g_buffer
         memset(dest, 0, strlen(dest));
         free(g_buffer);
+
+        for (int i = 0; i < argc; i++){
+            char *tmp = args[i];
+            char *envvar_buf;
+
+            const char *p = strstr(tmp, "$");
+            if (p == NULL){
+                continue;
+            }
+
+            p++;
+
+            char *ptr = strchr(p, ' ');
+            if (ptr != NULL) {
+                *ptr = '\0';
+            }
+            
+            envvar_buf = getenv(p);
+
+            if(envvar_buf){
+                strcpy(args[i], envvar_buf);
+            }
+        }
+
         // Execute the given command
         execute_command(args);
 
