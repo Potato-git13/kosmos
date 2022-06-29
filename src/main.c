@@ -15,10 +15,10 @@
 #include "alias.h"
 #include "builtins.h"
 #include "history.h"
+#include "envvars.h"
 #include "config.h"
 #include "cmdline_args.h"
 #include "strreplace.h"
-#include "envvars.h"
 
 extern int errno;
 
