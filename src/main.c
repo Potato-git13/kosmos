@@ -25,6 +25,7 @@ void execute_command(char *const *args);
 char *create_string(char *str, int len);
 char **split_command(char *cmd, int *count);
 void env_vars(char **args, int argc);
+void comments(char *args);
 void mainloop();
 int main(int argc, char* argv[]);
 
@@ -200,9 +201,18 @@ void env_vars(char **args, int argc){
     }
 }
 
+void comments(char *args){
+    // Check for a hashtag that symbolises a comment
+    char *p = strchr(args, '#');
+    // If not NULL make it NULL
+    if (p != NULL){
+        *p = '\0';
+    }
+}
+
 void mainloop(){
     char **args = NULL;
-    int argc;
+    int argc = 0;
     const char *homepath = get_homepath();
 
     // Create the history filename for a single use and is then redefined inside the loop
@@ -232,6 +242,9 @@ void mainloop(){
             append_history(1, hist_file);
         }
         history_truncate_file(hist_file, SAVEHIST);
+
+        // Handle comments
+        comments(g_buffer);
 
         // Trim the buffer
         trim(g_buffer, g_buffer);

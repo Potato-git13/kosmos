@@ -8,6 +8,7 @@ char *create_config_name(char *config_file);
 void execute_command(char *const *args);
 char **split_command(char *cmd, int *count);
 void env_vars(char **args, int argc);
+void comments(char *args);
 
 void read_config(char *filename){
     FILE *fp = fopen(filename, "r");
@@ -16,6 +17,8 @@ void read_config(char *filename){
     int argc;
 
     while(fgets(buffer, sizeof(buffer), fp)){
+        // Handle comments
+        comments(buffer);
         // Trim the buffer
         trim(buffer, buffer);
 
