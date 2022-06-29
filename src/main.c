@@ -165,10 +165,10 @@ void env_vars(char **args, int argc){
         // If one is found increment p 
         p++;
 
-        // Remove everything after space/null
+        // Remove everything after space/NULL
         char *after = strchr(p, ' ');
         if (after != NULL) {
-            // If tlength is 1 it can only be a space so add it back
+            // If length is 1 it can only be a space so add it back
             if (strlen(after) == 1){
                 after++;
             }
@@ -258,6 +258,7 @@ void mainloop(){
             strcpy(dest, g_buffer);
         }
 
+        // Replace a ~ with the homepath
         str_replace(dest, "~", homepath);
 
         // Split the command and get the amount of arguments
@@ -278,7 +279,7 @@ void mainloop(){
     }
 }
 
-int main(int argc, char* argv[]){
+int main(int argc, char *argv[]){
     char *config_file = malloc(sizeof("/home/") + sizeof(whoami()) + sizeof("/.kosmosrc") * sizeof(char *));
 
     // Initialise the aliases struct

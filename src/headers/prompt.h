@@ -10,6 +10,7 @@ const char *prompt(const char *homepath){
     // Create a prompt for the user
     char cwd[PATHLEN];
     char *cwd_check;
+    // Read the PS1 environment variable for the prompt
     char *PS1 = getenv("PS1");
     if (!PS1){
         fprintf(stderr, "kosmos: prompt not found, using default one\n");
@@ -35,6 +36,7 @@ const char *prompt(const char *homepath){
         strcpy(cwd, path);
     }
     free(path);
+    // Get the host name
     char *host = get_host();
 
     // User

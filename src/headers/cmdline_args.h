@@ -4,7 +4,9 @@
 void command_line_arguments(int argc, char *argv[]);
 
 const char help_msg[] =
-    "Usage: kosmos [<option>]\n\n"
+    "kosmos, version "VERSION"\n"
+    "Usage: kosmos [<option>]\n"
+    "\n"
     "Options:\n"
     "\t-h, --help\tshow this message, then exit\n"
     "\t-v, --version\tshow the kosmos version number, then exit\n"

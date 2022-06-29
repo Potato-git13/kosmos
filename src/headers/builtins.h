@@ -121,16 +121,18 @@ void clear_hist(){
 
 void help(){
     // Show a help message
-    printf("\
-kosmos, version %s\n\
-These commands are defined inside the shell\n\n\
-\
- alias - alias NAME VALUE\n\
- cd - cd PATH\n\
- clear-history\n\
- exit\n\
- export - export NAME VALUE\n\
- help - shows this message\n", VERSION);
+    const char help[] = 
+        "kosmos, version "VERSION"\n"
+        "These commands are defined inside the shell\n"
+        "\talias\t\talias NAME VALUE\n"
+        "\tcd\t\tcd PATH\n"
+        "\tclear-history\n"
+        "\texit\n"
+        "\texport\t\texport NAME VALUE\n"
+        "\thelp\n"
+        ;
+        
+    printf("%s", help);
 }
 
 // Define the builtins struct
