@@ -51,7 +51,7 @@ There are built-in functions to add aliases and set environment variables. Examp
 
 ```
 alias ls "ls ---color"
-export PATH /bin
+export PATH /bin:$PATH
 ```
 
 By editing the ```HISTSIZE``` and ```SAVEHIST``` variables in the ```src/headers/defvars.h``` file, you can customize how many lines are saved to history and how many lines are written to the history file located at ```~/.kosmos_history```.
