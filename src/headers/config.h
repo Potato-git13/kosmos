@@ -2,7 +2,7 @@
 #define CONFIG_HEADER
 
 void read_config(char *filename);
-void create_config(char *fname);
+void create_config(char *filename);
 char *create_config_name(char *config_file);
 void config_handler();
 
@@ -45,13 +45,13 @@ void read_config(char *filename){
     }
 }
 
-void create_config(char *fname){
+void create_config(char *filename){
     // If the file does not exist create it
-    if (access(fname, F_OK) != 0) {
+    if (access(filename, F_OK) != 0) {
         FILE *fp;
 
         printf("kosmos: the config file was not found. Creating an empty one\n");
-        fp = fopen(fname, "w");
+        fp = fopen(filename, "w");
         fclose(fp);
     }
 }
