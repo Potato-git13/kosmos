@@ -4,10 +4,22 @@
 void read_config(char *filename);
 void create_config(char *fname);
 char *create_config_name(char *config_file);
+void config_handler();
 
 void execute_command(char *const *args);
 char **split_command(char *cmd, int *count);
 void comments(char *args);
+
+void config_handler(){
+    char *config_file = malloc(sizeof("/home/") + sizeof(whoami()) + sizeof("/.kosmosrc") * sizeof(char *));
+    // Create the config filename
+    create_config_name(config_file);
+    // If the config file doesn't exist create an empty one
+    create_config(config_file);
+    // Read the config file
+    read_config(config_file);
+    free(config_file);
+}
 
 void read_config(char *filename){
     FILE *fp = fopen(filename, "r");
