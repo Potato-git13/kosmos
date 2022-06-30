@@ -5,6 +5,7 @@ void str_replace(char *stack, const char *needle, const char *replacement);
 const char *prompt(const char *homepath);
 
 char shell_prompt[1024];
+int prompt_err_shown = 0;
 
 const char *prompt(const char *homepath){
     // Create a prompt for the user
@@ -13,8 +14,11 @@ const char *prompt(const char *homepath){
     // Read the PS1 environment variable for the prompt
     char *PS1 = getenv("PS1");
     if (!PS1){
-        fprintf(stderr, "kosmos: prompt not found, using default one\n");
-        strcpy(shell_prompt, "$ ");
+        if (prompt_err_shown == 0){
+            fprintf(stderr, "kosmos: prompt not found, using default one\n");
+            prompt_err_shown++;
+        }
+        strcpy(shell_prompt, "\\u:\\s$ ");
     } else {
         strcpy(shell_prompt, PS1);
     }
