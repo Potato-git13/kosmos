@@ -30,6 +30,7 @@ void command_line_arguments(int argc, char *argv[]){
         for (int i=0; i<argc; i++){
             argv[i]=argv[i+2];
         }
+        // env_vars(argv, )
         execute_command(argv);
         exit(EXIT_SUCCESS);
     }
@@ -52,7 +53,7 @@ void command_line_arguments(int argc, char *argv[]){
         FILE *fp = fopen(filename, "r");
         char buffer[MAX_LINES];
         char **args;
-        int argc;
+        int argcnt;
 
         if (fp == NULL){
             printf("kosmos: can't open file: %s\n", filename);
@@ -78,14 +79,14 @@ void command_line_arguments(int argc, char *argv[]){
             str_replace(dest, "~", homepath);
 
             // Split the arguments and execute them
-            args = split_command(dest, &argc);
-            env_vars(args, argc);
+            args = split_command(dest, &argcnt);
+            env_vars(args, argcnt);
             execute_command(args);
 
             // Reset the buffer and free the arguments
             memset(buffer, 0, strlen(buffer));
             memset(dest, 0, strlen(dest));
-            for (int i = 0; i < argc; i++)
+            for (int i = 0; i < argcnt; i++)
                 free(args[i]);
         }
 
