@@ -45,10 +45,16 @@ void command_line_arguments(int argc, char *argv[]){
         exit(EXIT_SUCCESS);
     } else {
         // Open the the first argument and execute line by line
-        FILE *fp = fopen(argv[1], "r");
+        char *filename = argv[1];
+        FILE *fp = fopen(filename, "r");
         char buffer[MAX_LINES];
         char **args;
         int argc;
+
+        if (fp == NULL){
+            printf("kosmos: can't open file: %s\n", filename);
+            exit(EXIT_FAILURE);
+        }
 
         while(fgets(buffer, sizeof(buffer), fp)){
             // Handle comments
