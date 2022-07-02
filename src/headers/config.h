@@ -21,7 +21,10 @@ void config_handler(){
     free(config_file);
 }
 
+char dest[COMMANDLEN];
+
 void read_config(char *filename){
+    const char *homepath = get_homepath();
     FILE *fp = fopen(filename, "r");
     char buffer[MAX_LINES];
     char **args;
@@ -33,13 +36,26 @@ void read_config(char *filename){
         // Trim the buffer
         trim(buffer, buffer);
 
+        // Aliases
+        for (int i = 0; i < nelements; i++){
+            alias(dest, buffer, aliases[i]->substring, aliases[i]->replace);
+        }
+        // Set dest to buffer if dest is NULL
+        if (!*dest){
+            strcpy(dest, buffer);
+        }
+
+        // Replace a ~ with the homepath
+        str_replace(dest, "~", homepath);
+
         // Split the arguments and execute them
-        args = split_command(buffer, &argc);
+        args = split_command(dest, &argc);
         env_vars(args, argc);
         execute_command(args);
 
-        // Reset the buffer and free the arguments
+        // Reset the buffer and dest and free the arguments and homepath
         memset(buffer, 0, strlen(buffer));
+        memset(dest, 0, strlen(dest));
         for (int i = 0; i < argc; i++)
             free(args[i]);
     }
