@@ -3,6 +3,8 @@
 
 void command_line_arguments(int argc, char *argv[]);
 
+char dest[COMMANDLEN];
+
 const char help_msg[] =
     "kosmos, version "VERSION"\n"
     "Usage: kosmos [<option>]\n"
@@ -44,6 +46,7 @@ void command_line_arguments(int argc, char *argv[]){
         printf("kosmos %s\n", VERSION);
         exit(EXIT_SUCCESS);
     } else {
+        char *homepath = get_homepath();
         // Open the the first argument and execute line by line
         char *filename = argv[1];
         FILE *fp = fopen(filename, "r");
@@ -62,13 +65,26 @@ void command_line_arguments(int argc, char *argv[]){
             // Trim the buffer
             trim(buffer, buffer);
 
+            // Aliases
+            for (int i = 0; i < nelements; i++){
+                alias(dest, buffer, aliases[i]->substring, aliases[i]->replace);
+            }
+            // Set dest to buffer if dest is NULL
+            if (!*dest){
+                strcpy(dest, buffer);
+            }
+
+            // Replace a ~ with the homepath
+            str_replace(dest, "~", homepath);
+
             // Split the arguments and execute them
-            args = split_command(buffer, &argc);
+            args = split_command(dest, &argc);
             env_vars(args, argc);
             execute_command(args);
 
             // Reset the buffer and free the arguments
             memset(buffer, 0, strlen(buffer));
+            memset(dest, 0, strlen(dest));
             for (int i = 0; i < argc; i++)
                 free(args[i]);
         }
