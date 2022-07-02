@@ -22,9 +22,10 @@ void config_handler(){
 }
 
 char dest[COMMANDLEN];
+const char *homepath;
 
 void read_config(char *filename){
-    char *homepath = get_homepath();
+    homepath = get_homepath();
     FILE *fp = fopen(filename, "r");
     char buffer[MAX_LINES];
     char **args;
@@ -56,8 +57,6 @@ void read_config(char *filename){
         // Reset the buffer and dest
         memset(buffer, 0, strlen(buffer));
         memset(dest, 0, strlen(dest));
-        // Free homepath
-        free(homepath);
         // Free the arguments
         for (int i = 0; i < argc; i++)
             free(args[i]);
