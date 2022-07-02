@@ -66,6 +66,38 @@ The resource file is located at ```~/.kosmosrc``` and is read on shell startup. 
 
 The history file is located at ```~/.kosmos_history```. Everything entered into the shell is logged here, besides the empty inputs.
 
+## The Prompt
+
+The command prompt is made from the PS1 environment variable. If the variable is empty a default prompt will be used. Set your prompt in the resource file with the export command. To colorize text use these symbols to represent a color:
+
+```
+\b\  	- Blue
+\bb\ 	- Blue Bold
+\c\  	- Cyan
+\cb\ 	- Cyan Bold
+\g\  	- Green
+\gb\ 	- Green Bold
+\m\  	- Magenta
+\mb\ 	- Magenta Bold
+\r\  	- Red
+\rb\ 	- Red Bold
+\reset\ - Reset(reset the color)
+```
+
+And these are the variables you can use in the prompt:
+
+```
+\u\ 	- User
+\h\ 	- Host
+\s\ 	 - Current working directory
+```
+
+This is an example of a prompt:
+
+```
+export PS1 "\reset\[\yb\\u\\reset\@\b\\h\\reset\]:\m\\s\\reset\\$ "
+```
+
 # Contributing
 
 Contributing is as easy as:
