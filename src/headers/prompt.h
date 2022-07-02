@@ -44,11 +44,11 @@ const char *prompt(const char *homepath){
     char *host = get_host();
 
     // User
-    str_replace(shell_prompt, "\\u", whoami());
+    str_replace(shell_prompt, "\\u\\", whoami());
     // Host
-    str_replace(shell_prompt, "\\h", host);
+    str_replace(shell_prompt, "\\h\\", host);
     // cwd
-    str_replace(shell_prompt, "\\s", cwd);
+    str_replace(shell_prompt, "\\s\\", cwd);
 
     char *color_arr[] = {RED, REDBOLD, GREEN, GREENBOLD,
                         YELLOW, YELLOWBOLD, BLUE, BLUEBOLD,
