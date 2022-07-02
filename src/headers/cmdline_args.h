@@ -43,6 +43,31 @@ void command_line_arguments(int argc, char *argv[]){
     } else if (!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version")){
         printf("kosmos %s\n", VERSION);
         exit(EXIT_SUCCESS);
+    } else {
+        // Open the the first argument and execute line by line
+        FILE *fp = fopen(argv[1], "r");
+        char buffer[MAX_LINES];
+        char **args;
+        int argc;
+
+        while(fgets(buffer, sizeof(buffer), fp)){
+            // Handle comments
+            comments(buffer);
+            // Trim the buffer
+            trim(buffer, buffer);
+
+            // Split the arguments and execute them
+            args = split_command(buffer, &argc);
+            env_vars(args, argc);
+            execute_command(args);
+
+            // Reset the buffer and free the arguments
+            memset(buffer, 0, strlen(buffer));
+            for (int i = 0; i < argc; i++)
+                free(args[i]);
+        }
+
+        exit(EXIT_SUCCESS);
     }
 }
 
