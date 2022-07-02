@@ -30,7 +30,6 @@ void command_line_arguments(int argc, char *argv[]){
         for (int i=0; i<argc; i++){
             argv[i]=argv[i+2];
         }
-        // env_vars(argv, )
         execute_command(argv);
         exit(EXIT_SUCCESS);
     }
