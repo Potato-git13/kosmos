@@ -50,7 +50,7 @@ void setenvvar(char *const *args){
     char *envvar = args[1];
     char *value = args[2];
 
-    char *buffer = malloc(PATHLEN);
+    char *buffer = malloc(PATHLEN*8);
 
     // Errors
     if(!args[2]){
@@ -66,14 +66,13 @@ void setenvvar(char *const *args){
 
     // Set the environment variable to the buffer
     int i = setenv(envvar, buffer, 1);
+
+    free(buffer);
     // Errors
     if(i != 0){
         printf("kosmos: %s\n", strerror(errno));
-        free(buffer);
         return;
     }
-
-    free(buffer);
 }
 
 void init_aliases(){
