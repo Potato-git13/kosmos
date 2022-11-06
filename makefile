@@ -10,7 +10,7 @@ OBJS=$(FILES:.c=.o)
 all: dir compile
 
 dir:
-	mkdir -p $(OUTDIR) $(OBJS)
+	mkdir -p $(OUTDIR)
 
 compile: $(FILES)
 	$(CC) -o $(OUTNAME) $(FILES) -I$(HEADERS) $(CFLAGS)
@@ -22,7 +22,7 @@ compile-debug: CFLAGS += -g
 compile-debug: dir compile
 
 clean: $(OUTDIR)
-	rm -rf $(OUTDIR)
+	rm -rf $(OUTDIR) $(OBJS)
 
 install:
 	sudo cp -p $(OUTNAME) /bin/kosmos
