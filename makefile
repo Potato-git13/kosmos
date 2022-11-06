@@ -1,10 +1,11 @@
 CFLAGS=-Wall -Wextra -Wpedantic -std=gnu17 -O3 -lreadline
+LDFLAGS=-lm
 CC=gcc
 
 OUTDIR=bin
 OUTNAME=$(OUTDIR)/kosmos
 HEADERS=src/
-FILES=$(wildcard src/*.c)
+FILES=$(wildcard src/*.c) $(wildcard src/*/*.c)
 OBJS=$(FILES:.c=.o)
 
 all: dir compile
@@ -12,8 +13,8 @@ all: dir compile
 dir:
 	mkdir -p $(OUTDIR)
 
-compile: $(FILES)
-	$(CC) -o $(OUTNAME) $(FILES) -I$(HEADERS) $(CFLAGS)
+compile: $(OBJS)
+	$(CC) -o $(OUTNAME) $(OBJS) $(CFLAGS) $(LDFLAGS)
 
 %.o: %.c
 	$(CC) -o $@ -c $< $(CFLAGS) -I$(HEADERS)
