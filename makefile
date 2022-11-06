@@ -3,7 +3,7 @@ CC=gcc
 
 OUTDIR=bin
 OUTNAME=$(OUTDIR)/kosmos
-HEADERS=src/headers/
+HEADERS=src/
 FILES=$(wildcard src/*.c)
 OBJS=$(FILES:.c=.o)
 

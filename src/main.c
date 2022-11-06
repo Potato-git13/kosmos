@@ -7,18 +7,20 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#include "defvars.h"
-#include "colors.h"
-#include "trim.h"
-#include "get.h"
-#include "prompt.h"
-#include "alias.h"
-#include "builtins.h"
-#include "history.h"
-#include "envvars.h"
-#include "config.h"
-#include "cmdline_args.h"
-#include "strreplace.h"
+#include "components/defvars.h"
+
+#include "util/colors.h"
+#include "util/trim.h"
+#include "util/get.h"
+#include "util/alias.h"
+#include "util/envvars.h"
+#include "util/strreplace.h"
+
+#include "components/prompt.h"
+#include "components/builtins.h"
+#include "components/history.h"
+#include "components/config.h"
+#include "components/cmdline_args.h"
 
 extern int errno;
 
