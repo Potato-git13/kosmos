@@ -10,11 +10,7 @@
 #include "components/defvars.h"
 
 #include "util/colors.h"
-#include "util/trim.h"
-#include "util/get.h"
-#include "util/alias.h"
-#include "util/envvars.h"
-#include "util/strreplace.h"
+#include "util/util.h"
 
 #include "components/prompt.h"
 #include "components/builtins.h"
