@@ -1,11 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <string.h>
-#include <ctype.h>
-
-#include "components/defvars.h"
-
 #include "util.h"
 
 // Define the function to avoid warnings during compilation
