@@ -1,16 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <errno.h>
-#include <string.h>
 #include <sys/wait.h>
-#include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
 #include "components/defvars.h"
-
-#include "util/colors.h"
-#include "util/util.h"
 
 #include "components/prompt.h"
 #include "components/builtins.h"
