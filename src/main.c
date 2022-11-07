@@ -1,13 +1,10 @@
 #include <errno.h>
 #include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 
 #include "components/defvars.h"
 
 #include "components/prompt.h"
 #include "components/builtins.h"
-#include "components/history.h"
 #include "components/config.h"
 #include "components/cmdline_args.h"
 
