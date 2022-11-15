@@ -12,12 +12,13 @@ void alias_cmd(char *const *args);
 void clear_hist();
 void help();
 int builtin(char *const *args);
+void init_aliases();
+void free_aliases();
 
 char g_path[PATHLEN];
 int nelements = 0;
 
 struct Aliases **aliases;
-void free_aliases();
 
 void builtin_exit(){
     free_aliases();
