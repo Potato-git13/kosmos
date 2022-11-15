@@ -22,7 +22,7 @@ compile: $(OBJS)
 compile-debug: CFLAGS += -g
 compile-debug: dir compile
 
-clean: $(OUTDIR)
+clean:
 	rm -rf $(OUTDIR) $(OBJS)
 
 install:
