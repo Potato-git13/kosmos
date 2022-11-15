@@ -18,7 +18,7 @@ Install kosmos by running these commands, or download it from the release page.
 ```
 git clone https://github.com/Potato-git13/kosmos.git
 cd kosmos/
-make compile install
+make install
 ```
 It is recommended to download from the repository to get the latest updates and fixes. If you download the shell from the release page, you will have to manually copy the binary to ```/bin```.
 
@@ -29,7 +29,7 @@ Run these commands to clone the repository and to change the current directory t
 git clone https://github.com/Potato-git13/kosmos.git
 cd kosmos/
 ```
-Program files are located in the ```src/``` directory. Most functions are defined in their separate header file located in the ```headers/``` subdirectory.
+Program files are located in the ```src/``` directory. Most functions are defined in their separate header file located in the ```src/components/``` or ```src/uti/l``` subdirectory.
 
 Compile the project with ```make compile-debug``` for more information when debugging.
 
@@ -54,7 +54,7 @@ alias ls "ls ---color"
 export PATH /bin:$PATH
 ```
 
-By editing the ```HISTSIZE``` and ```SAVEHIST``` variables in the ```src/headers/defvars.h``` file, you can customize how many lines are saved to history and how many lines are written to the history file located at ```~/.kosmos_history```.
+By editing the ```HISTSIZE``` and ```SAVEHIST``` variables in the ```src/components/defvars.h``` file, you can customize how many lines are saved to history and how many lines are written to the history file located at ```~/.kosmos_history```.
 
 After editing the file, you will have to recompile the shell.
 
@@ -89,7 +89,7 @@ And these are the variables you can use in the prompt:
 ```
 \u\ 	- User
 \h\ 	- Host
-\s\ 	 - Current working directory
+\s\ 	- Current working directory
 ```
 
 This is an example of a prompt:
