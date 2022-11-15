@@ -29,7 +29,7 @@ Run these commands to clone the repository and to change the current directory t
 git clone https://github.com/Potato-git13/kosmos.git
 cd kosmos/
 ```
-Program files are located in the ```src/``` directory. Most functions are defined in their separate header file located in the ```src/components/``` or ```src/uti/l``` subdirectory.
+Program files are located in the ```src/``` directory. Most functions are defined in their separate header file located in the ```src/components/``` or ```src/util/``` subdirectory.
 
 Compile the project with ```make compile-debug``` for more information when debugging.
 
