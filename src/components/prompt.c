@@ -46,9 +46,9 @@ const char *prompt(const char *homepath){
     // cwd
     str_replace(shell_prompt, "\\s\\", cwd);
 
-    char *color_arr[] = {RED, REDBOLD, GREEN, GREENBOLD,
-                        YELLOW, YELLOWBOLD, BLUE, BLUEBOLD,
-                        MAGENTA, MAGENTABOLD, CYAN, CYANBOLD,
+    char *color_arr[] = {RED, RED_BOLD, GREEN, GREEN_BOLD,
+                        YELLOW, YELLOW_BOLD, BLUE, BLUE_BOLD,
+                        MAGENTA, MAGENTA_BOLD, CYAN, CYAN_BOLD,
                         RESET};
     char *color_symbols[] = {"\\r\\", "\\rb\\", "\\g\\", "\\gb\\",
                         "\\y\\", "\\yb\\", "\\b\\", "\\bb\\",
