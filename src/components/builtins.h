@@ -51,7 +51,7 @@ void setenvvar(char *const *args){
     char *envvar = args[1];
     char *value = args[2];
 
-    char *buffer = malloc(PATHLEN*8);
+    char *buffer = malloc(strlen(value));
 
     // Errors
     if(!args[2]){
