@@ -215,11 +215,12 @@ void mainloop(){
 }
 
 int main(int argc, char *argv[]){
+    const char *homepath = get_homepath();
     // Initialise the aliases struct
     init_aliases();
 
     // Handle the config file
-    config_handler();
+    config_handler(homepath);
 
     // Check the arguments
     command_line_arguments(argc, argv);

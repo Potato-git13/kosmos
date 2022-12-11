@@ -21,4 +21,6 @@ struct Aliases{
 
 #define SIZE(x) (sizeof x / sizeof x[0])
 
+int asprintf(char **strp, const char *fmt, ...);
+
 #endif

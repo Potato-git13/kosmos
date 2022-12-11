@@ -103,9 +103,11 @@ char* get_host(){
 
 char* get_homepath(){
     char *homepath = malloc(PATHLEN);
-    // Concatinate the string "/home/" and the username
-    strcpy(homepath, "/home/");
-    strcat(homepath, whoami());
+    homepath = getenv("HOME");
+    if (!homepath){
+        fprintf(stderr, "kosmos: environment variable HOME not found\n");
+        return NULL;
+    }
     return homepath;
 }
 
