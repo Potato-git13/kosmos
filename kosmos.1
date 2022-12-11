@@ -1,0 +1,113 @@
+.TH KOSMOS 1 kosmos\-0.1.5
+.SH NAME
+kosmos - the kosmos shell
+.SH SYNOPSIS
+.B kosmos
+[options] [command | file]
+.SH DESCRIPTION
+.B kosmos
+is a shell for any Linux operating system
+.SH OPTIONS
+.TP
+.B \-h, \--help
+output the help message and exit.
+.TP
+.B \-v, \--version
+output the version number and exit.
+.TP
+.B -c
+read and execute commands from the arguments after this flag, then exit.
+.SH ENVIRONMENT
+environment variables that affect \fBkosmos\fP:
+.RS
+.TP
+.B PS1
+the value of \fBPS1\fP is the prompt string (for more information see \fBPROMPT\fP below).
+.TP 
+.B PATH
+the \fBPATH\fP variable tells the shell where to look for executables
+.SH CUSTOMIZATION
+.SS PROMPT
+When executed without the \fB\-c\fP flag, \fBkosmos\fP displays the shell prompt \fBPS1\fP.
+If the \fBPS1\fP environment variable is not present a default prompt will be shown.
+\fBKosmos\fP allows for customization of the prompt with special backslash-escaped and ended characters:
+.RS
+.TP
+.B \eu\e
+name of the current user
+.TP
+.B \eh\e
+name of the host machine
+.TP
+.B \es\e
+the current working directory
+.TP
+.B COLORS
+.TP
+.B \eb\e
+blue
+.TP
+.B \ebb\e
+blue bold
+.TP
+.B \ec\e
+cyan
+.TP
+.B \ecb\e
+cyan bold
+.TP
+.B \eg\e
+green
+.TP
+.B \eg\e
+green bold
+.TP
+.B \em\e
+magenta
+.TP
+.B \emb\e
+magenta bold
+.TP
+.B \er\e
+red
+.TP
+.B \erb\e
+red bold
+.TP
+.B \ereset\e
+reset text color
+.SS RESOURCE FILE
+To modify the shell's behaviour the resource file can be utilized.
+The resource file located at \fI~/.kosmosrc\fP is read on shell startup.
+Commands are read from the file line-by-line and executed as if given to the shell interactivly.
+The resource file is a way to preload your aliases and environment variables (see \fBBUILTIN COMMANDS\fP below). If any errors occur while executing they will be logged to \fIstderr\fP.
+.SH BUILTIN COMMANDS
+.B Kosmos
+features these builtin commands:
+.RS
+.TP
+\fBalias\fP [\fIname\fP] [\fIvalue\fP]
+Define an alias with the name \fIname\fP and value \fIvalue\fP.
+.TP
+\fBcd\fP [\fIdir\fP]
+Changes the current directory to \fIdir\fP.
+If \fIdir\fP is not given, the directory is changed to \fI/home/$USER\fP.
+If \fIdir\fP is \fI..\fP, the directory is moved one directory back if possible.
+.TP
+.B clear-history
+Clears the shell's history. The history file is located at \fI~/.kosmos_history\fP.
+.TP
+.B exit
+Exits the shell.
+.TP
+\fBexport\fP [\fIname\fP] [\fIvalue\fP]
+Sets the environment variable \fIname\fP to value \fIvalue\fp.
+.TP
+.B help
+Ouput a help message including the version number and builtin commands. This is not the same message given on usage of the \fB-h\fP flag on shell invocation.
+.SH HISTORY FILE
+\fBKosmos'\fP history file is located at \fI~/.kosmos_history\fP.
+Every shell input is logged here besides the empty inputs. The variables \fBHISTSIZE\fP and \fBSAVEHIST\fP located in the \fIdefvars.h\fP header in the source code determine how many lines are written into the history file and how many of those lines are read to history that can be accessed inside of \fBkosmos\fP.
+Both of those variables are set to \fI3000\fP by default.
+.sp 1
+History can be accessed inside of the shell by pressing the up and down arrow keys.

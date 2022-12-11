@@ -2,16 +2,20 @@ CFLAGS=-Wall -Wextra -Wpedantic -std=gnu17 -O3 -lreadline
 LDFLAGS=-lm
 CC=gcc
 
-BIN=bin
+BIN=bin/
 BINPATH=$(BIN)/kosmos
+MAN=kosmos.1
+MANPATH=/usr/local/man/man1
+
 HEADERS=src/
 FILES=$(wildcard src/*.c) $(wildcard src/*/*.c)
 OBJS=$(FILES:.c=.o)
 
-all: dir compile
+all: dirs compile
 
-dir:
+dirs:
 	mkdir -p $(BIN)
+	mkdir -p $(MANPATH)
 
 compile: $(OBJS)
 	$(CC) -o $(BINPATH) $(OBJS) $(CFLAGS) $(LDFLAGS)
@@ -20,15 +24,16 @@ compile: $(OBJS)
 	$(CC) -o $@ -c $< $(CFLAGS) -I$(HEADERS)
 
 compile-debug: CFLAGS += -g
-compile-debug: dir compile
+compile-debug: dirs compile
 
 clean:
 	rm -rf $(BIN) $(OBJS)
 
 install:
 	sudo cp -p $(BINPATH) /bin/kosmos
+	sudo cp -p $(MAN) $(MANPATH)
 
 uninstall: /bin/kosmos
 	sudo rm /bin/kosmos
 
-.PHONY: all clean compile compile-debug dir install uninstall
+.PHONY: all clean compile compile-debug dirs install uninstall
