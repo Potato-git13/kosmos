@@ -26,8 +26,8 @@ void builtin_exit(){
 
 void changedir(char *const *args){
     // Implementation of cd
+    const char *homepath = get_homepath();
     g_path[0] = '\0';
-    char *temp = malloc(sizeof(g_path) * sizeof(char*));
 
     // If nothing is given go to the home directory
     if (args[1]){
@@ -35,11 +35,8 @@ void changedir(char *const *args){
         strcpy(g_path, args[1]);
     } else {
         // Create a path from the "/home/" string and the username
-        strcat(g_path, "/home/");
-        strcat(g_path, whoami());
+        strcat(g_path, homepath);
     }
-
-    free(temp);
 
     // Change the dir + errors
     if (chdir(g_path))
