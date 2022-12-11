@@ -7,7 +7,7 @@ char dest[COMMANDLEN];
 
 const char help_msg[] =
     "kosmos, version "VERSION"\n"
-    "Usage: kosmos [<option>]\n"
+    "Usage: kosmos [options] [command | file]\n"
     "\n"
     "Options:\n"
     "\t-h, --help\tshow this message, then exit\n"

@@ -6,7 +6,6 @@
 void builtin_exit();
 void changedir(char *const *args);
 void setenvvar(char *const *args);
-void setenvvar(char *const *args);
 void free_aliases();
 void alias_cmd(char *const *args);
 void clear_hist();
@@ -89,9 +88,11 @@ void free_aliases(){
 
 void alias_cmd(char *const *args){
     // Errors
-    if(!args[2]){
+    if(!args[2] || !args[1]){
         printf("alias: not enough arguments\n");
         return;
+    }else {
+        printf("0:%s\n1:%s\n2:%s\n", args[0], args[1], args[2]);
     }
     if(args[3]){
         printf("alias: too many arguments\n");
