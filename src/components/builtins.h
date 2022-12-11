@@ -91,11 +91,10 @@ void alias_cmd(char *const *args){
     if(!args[2] || !args[1]){
         printf("alias: not enough arguments\n");
         return;
-    }else {
-        printf("0:%s\n1:%s\n2:%s\n", args[0], args[1], args[2]);
     }
     if(args[3]){
         printf("alias: too many arguments\n");
+        return;
     }
 
     // Allocate a new member and copy the command line arguments to it
@@ -125,11 +124,11 @@ void help(){
     const char help[] = 
         "kosmos, version "VERSION"\n"
         "These commands are defined inside the shell\n"
-        "\talias\t\talias NAME VALUE\n"
-        "\tcd\t\tcd PATH\n"
+        "\talias\t\talias [name] [value]\n"
+        "\tcd\t\tcd [path]\n"
         "\tclear-history\n"
         "\texit\n"
-        "\texport\t\texport NAME VALUE\n"
+        "\texport\t\texport [name] [value]\n"
         "\thelp\n"
         ;
         
