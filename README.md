@@ -50,7 +50,7 @@ If you already installed it, run ```kosmos``` from the terminal, otherwise you c
 There are built-in functions to add aliases and set environment variables. Example:
 
 ```
-alias ls "ls ---color"
+alias ls "ls --color"
 export PATH /bin:$PATH
 ```
 
@@ -109,11 +109,11 @@ Contributing is as easy as:
 
 These are some loose guidelines for contributing to make it easier for everyone.
 
-### Comment the Code
+### Comment The Code
 
 Please add comments to your code, so everyone can understand what's happening.
 
-### Explain your Pull Request
+### Explain Your Pull Request
 
 In your pull request, explain the issue you fixed/what you added. If you are fixing an issue, reference the issue number in the pull request message.
 
