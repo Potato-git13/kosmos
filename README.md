@@ -18,7 +18,7 @@ Install kosmos by running these commands, or download it from the release page.
 ```
 git clone https://github.com/Potato-git13/kosmos.git
 cd kosmos/
-make install
+make all install
 ```
 It is recommended to download from the repository to get the latest updates and fixes. If you download the shell from the release page, you will have to manually copy the binary to ```/bin```.
 
