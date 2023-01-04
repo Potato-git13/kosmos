@@ -15,7 +15,7 @@ all: dirs compile
 
 dirs:
 	mkdir -p $(BIN)
-	mkdir -p $(MANPATH)
+	sudo mkdir -p $(MANPATH)
 
 compile: $(OBJS)
 	$(CC) -o $(BINPATH) $(OBJS) $(CFLAGS) $(LDFLAGS)
