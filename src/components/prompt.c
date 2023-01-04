@@ -14,7 +14,7 @@ const char *prompt(const char *homepath){
             fprintf(stderr, "kosmos: prompt not found, using default one\n");
             prompt_err_shown++;
         }
-        strcpy(shell_prompt, "\\u:\\s$ ");
+        strcpy(shell_prompt, "\\u\\:\\s\\\\$ ");
     } else {
         strcpy(shell_prompt, PS1);
     }
